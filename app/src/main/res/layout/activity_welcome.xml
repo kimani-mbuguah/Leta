@@ -29,25 +29,26 @@
         android:textAlignment="center"
         android:textSize="30sp"
         android:layout_marginTop="50dp"/>
+
 </LinearLayout>
-<LinearLayout
-    android:id="@+id/l2"
 
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:background="@drawable/test">
+    <LinearLayout
+        android:id="@+id/l2"
 
-    <Button
-
-        android:id="@+id/buttonGetStarted"
-        android:layout_width="141dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="@drawable/buttonstyle"
-        android:text="Get Started"
-        android:textColor="@android:color/white" />
-</LinearLayout>
+        android:background="@drawable/test"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/buttonGetStarted"
+            android:layout_width="141dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/buttonstyle"
+            android:text="Get Started"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
 
 
 </LinearLayout>

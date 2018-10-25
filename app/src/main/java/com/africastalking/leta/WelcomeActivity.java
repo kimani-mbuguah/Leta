@@ -1,7 +1,9 @@
 package com.africastalking.leta;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -24,5 +26,14 @@ public class WelcomeActivity extends AppCompatActivity {
         downtoup = AnimationUtils.loadAnimation(this,R.anim.downtoup);
         l1.setAnimation(uptodown);
         l2.setAnimation(downtoup);
+
+        //set click listener on get started button
+        getStartedBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent selectUserIntent = new Intent(WelcomeActivity.this, SelectUserActivity.class);
+                startActivity(selectUserIntent);
+            }
+        });
     }
 }
