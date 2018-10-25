@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/bg"
+    tools:context=".WelcomeActivity">
+<LinearLayout
+    android:id="@+id/l1"
+    android:layout_width="match_parent"
+    android:layout_height="400dp"
+    android:orientation="vertical">
+    <TextView
+        android:textColor="@color/colorPrimaryDark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Leta"
+        android:layout_gravity="center"
+        android:layout_marginTop="150dp"
+        android:textSize="60sp"
+        android:textStyle="bold"/>
+    <TextView
+        android:textColor="@color/darkAlice"
+        android:layout_width="398dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="We're super excited to have you onboard !"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        android:layout_marginTop="50dp"/>
+</LinearLayout>
+<LinearLayout
+    android:id="@+id/l2"
+
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/test">
+
+    <Button
+
+        android:id="@+id/buttonsub"
+        android:layout_width="141dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/buttonstyle"
+        android:text="Get Started"
+        android:textColor="@android:color/white" />
+</LinearLayout>
+
+
+</LinearLayout>
