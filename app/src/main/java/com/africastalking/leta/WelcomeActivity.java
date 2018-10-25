@@ -17,7 +17,7 @@ public class WelcomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
-        btnsub = (Button)findViewById(R.id.buttonsub);
+        btnsub = (Button)findViewById(R.id.buttonGetStarted);
         l1 = (LinearLayout) findViewById(R.id.l1);
         l2 = (LinearLayout) findViewById(R.id.l2);
         uptodown = AnimationUtils.loadAnimation(this,R.anim.uptodown);
