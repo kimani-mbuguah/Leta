@@ -30,8 +30,8 @@ public class SelectUserActivity extends AppCompatActivity {
         mVendorBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent vendorLoginItent = new Intent(SelectUserActivity.this, VendorLoginActivity.class);
-                startActivity(vendorLoginItent);
+                Intent vendorLoginIntent = new Intent(SelectUserActivity.this, VendorLoginActivity.class);
+                startActivity(vendorLoginIntent);
             }
         });
     }
