@@ -8,7 +8,9 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="198dp">
 
         <View
             android:layout_width="match_parent"
@@ -65,22 +67,22 @@
             android:id="@+id/btSignIn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@id/btSignUp"
-            android:layout_marginBottom="10dp"
+            android:layout_alignParentBottom="true"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
+            android:layout_marginBottom="112dp"
             android:background="@drawable/button_white"
-            android:text="Sign In"
+            android:text="Sign Up"
             android:textColor="@color/colorPrimary" />
 
         <Button
-            android:id="@+id/btSignUp"
+            android:id="@+id/btnSignUpClient"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="20dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
+            android:layout_marginBottom="44dp"
             android:background="@drawable/button_red"
             android:text="Sign Up"
             android:textColor="@color/colorWhite" />

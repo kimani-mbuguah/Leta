@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "269617313790",
+    "firebase_url": "https://leta-de267.firebaseio.com",
+    "project_id": "leta-de267",
+    "storage_bucket": "leta-de267.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:269617313790:android:234743486f32687f",
+        "android_client_info": {
+          "package_name": "com.africastalking.leta"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "269617313790-c8854e2p6gundr50ibg0tccnbg2itv69.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.africastalking.leta",
+            "certificate_hash": "60dbd53e69a55995da81ff23cc41c751636d3632"
+          }
+        },
+        {
+          "client_id": "269617313790-etc275elb0ojgm6lbj5uiqv8fvbhqk7u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB6T-1JuPnVt7Z3CEdJwez4-1LsZGtnpEs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "269617313790-etc275elb0ojgm6lbj5uiqv8fvbhqk7u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
