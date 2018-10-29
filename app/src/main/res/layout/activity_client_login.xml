@@ -72,7 +72,7 @@
             android:layout_marginRight="20dp"
             android:layout_marginBottom="112dp"
             android:background="@drawable/button_white"
-            android:text="Sign Up"
+            android:text="Sign In"
             android:textColor="@color/colorPrimary" />
 
         <Button

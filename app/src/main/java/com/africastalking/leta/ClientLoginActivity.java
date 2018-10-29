@@ -9,6 +9,7 @@ import android.widget.Button;
 public class ClientLoginActivity extends AppCompatActivity {
 
     private Button msignUpBtn;
+    private Button mSignInBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,6 +17,7 @@ public class ClientLoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_client_login);
 
         msignUpBtn = findViewById(R.id.btnSignUpClient);
+        mSignInBtn = findViewById(R.id.btSignIn);
 
         //set click listener
         msignUpBtn.setOnClickListener(new View.OnClickListener() {
@@ -23,6 +25,15 @@ public class ClientLoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent signUpIntent = new Intent(ClientLoginActivity.this, ClientSignUpActivity.class);
                 startActivity(signUpIntent);
+            }
+        });
+
+        //set click listener to sign in button
+        mSignInBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent loginIntent = new Intent(ClientLoginActivity.this, MainActivity.class);
+                startActivity(loginIntent);
             }
         });
     }
