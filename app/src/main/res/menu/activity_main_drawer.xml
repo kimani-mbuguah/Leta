@@ -7,11 +7,15 @@
         <item
             android:id="@+id/nav_camera"
             android:icon="@drawable/ic_menu_camera"
-            android:title="Popular Meals" />
+            android:title="Snacks" />
         <item
             android:id="@+id/nav_gallery"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="Restaurants" />
+            android:title="Drinks" />
+        <item
+            android:id="@+id/nav_mainmeals"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Main Meals" />
     </group>
 
     <item android:title="Me">
@@ -20,6 +24,10 @@
                 android:id="@+id/nav_share"
                 android:icon="@drawable/ic_menu_share"
                 android:title="My Meals" />
+            <item
+                android:id="@+id/nav_restaurants"
+                android:icon="@drawable/ic_menu_gallery"
+                android:title="Restaurants" />
             <item
                 android:id="@+id/nav_send"
                 android:icon="@drawable/ic_menu_send"
