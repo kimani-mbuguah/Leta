@@ -74,7 +74,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="url" value="jar:file:/snap/android-studio/69/android-studio/plugins/android/lib/android.jar!/images/material_design_icons/action/ic_add_shopping_cart_black_24dp.xml" />
+                                                <entry key="url" value="jar:file:/snap/android-studio/69/android-studio/plugins/android/lib/android.jar!/images/material_design_icons/image/ic_remove_red_eye_black_24dp.xml" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -85,7 +85,7 @@
                                   <option name="values">
                                     <map>
                                       <entry key="iconShape" value="NONE" />
-                                      <entry key="outputName" value="ic_cart_add" />
+                                      <entry key="outputName" value="ic_view" />
                                     </map>
                                   </option>
                                 </PersistentState>

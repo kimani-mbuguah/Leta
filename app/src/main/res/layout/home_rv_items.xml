@@ -51,8 +51,9 @@
                 android:id="@+id/add_to_cart_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:backgroundTint="@color/colorAmber"
-                app:srcCompat="@mipmap/ic_cart_add" />
+                app:backgroundTint="@color/colorPrimary"
+                app:srcCompat="@mipmap/ic_view"
+                android:onClick="ViewItem"/>
 
         </LinearLayout>
 
@@ -64,7 +65,8 @@
             android:background="@drawable/capsule"
             android:gravity="center"
             android:text="$10.00"
-            android:textColor="@color/colorWhite" />
+            android:textColor="@color/colorWhite"
+            android:layout_gravity="center"/>
 
 
     </LinearLayout>

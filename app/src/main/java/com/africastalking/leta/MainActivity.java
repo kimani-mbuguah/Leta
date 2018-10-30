@@ -1,5 +1,8 @@
 package com.africastalking.leta;
 
+import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -14,11 +17,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    Dialog mDialog;
     private RecyclerView homeRV;
     ArrayList<ModelHomeContent> foodsList;
 
@@ -45,6 +51,8 @@ public class MainActivity extends AppCompatActivity
         homeContentAdapter homeContentAdapter = new homeContentAdapter(this, foodsList);
         homeRV.setAdapter(homeContentAdapter);
 
+        mDialog = new Dialog(this);
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,6 +70,23 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    public void ViewItem(View v){
+        TextView txtclose;
+        Button btnAddToCart;
+        mDialog.setContentView(R.layout.item_popup);
+        txtclose =(TextView) mDialog.findViewById(R.id.txtclose);
+        txtclose.setText("X");
+        btnAddToCart = (Button) mDialog.findViewById(R.id.btnAddToCart);
+        txtclose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mDialog.dismiss();
+            }
+        });
+        mDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        mDialog.show();
     }
 
     @Override
