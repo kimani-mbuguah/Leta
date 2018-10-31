@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="350dp"
     android:layout_height="wrap_content"
-    android:background="@color/colorPrimaryDark"
+    android:background="@color/darkOrange"
     android:padding="5dp"
     android:layout_gravity="center">
     <TextView
@@ -107,7 +107,7 @@
         <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
             android:id="@+id/addQuantityBtn"
             android:layout_width="wrap_content"
-            app:backGroundColor="@color/colorPrimary"
+            app:backGroundColor="@color/forestgreen"
             app:textSize="8sp"
             app:initialNumber="1"
             app:finalNumber="20"
