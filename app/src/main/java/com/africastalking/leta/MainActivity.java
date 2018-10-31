@@ -22,6 +22,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     Dialog mDialog;
@@ -78,7 +80,15 @@ public class MainActivity extends AppCompatActivity
         mDialog.setContentView(R.layout.item_popup);
         txtclose =(TextView) mDialog.findViewById(R.id.txtclose);
         txtclose.setText("X");
-        btnAddToCart = (Button) mDialog.findViewById(R.id.btnAddToCart);
+        final ElegantNumberButton addQuantityButton = mDialog.findViewById(R.id.addQuantityBtn);
+
+        addQuantityButton.setOnClickListener(new ElegantNumberButton.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String num = addQuantityButton.getNumber();
+            }
+        });
+        btnAddToCart  = (Button) mDialog.findViewById(R.id.btnAddToCart);
         txtclose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
