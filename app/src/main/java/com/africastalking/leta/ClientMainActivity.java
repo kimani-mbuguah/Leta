@@ -25,7 +25,7 @@ public class ClientMainActivity extends AppCompatActivity {
         clientMainToolbar = findViewById(R.id.client_main_toolbar);
         setSupportActionBar(clientMainToolbar);
 
-        getSupportActionBar().setTitle("Tule");
+        getSupportActionBar().setTitle("Leta");
 
         mTextMessage = (TextView) findViewById(R.id.message);
 

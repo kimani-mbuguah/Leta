@@ -48,12 +48,11 @@
             <android.support.design.widget.FloatingActionButton
                 android:layout_marginTop="5dp"
                 android:layout_gravity="center"
-                android:id="@+id/add_to_cart_btn"
+                android:id="@+id/view_item_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:backgroundTint="@color/darkOrange"
-                app:srcCompat="@mipmap/ic_view"
-                android:onClick="ViewItem"/>
+                app:srcCompat="@mipmap/ic_view"/>
 
         </LinearLayout>
 
