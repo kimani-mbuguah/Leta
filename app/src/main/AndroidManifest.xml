@@ -28,7 +28,8 @@
         <activity android:name=".MyCartActivity" />
         <activity
             android:name=".ClientMainActivity"
-            android:label="@string/title_activity_client_main"></activity>
+            android:label="@string/title_activity_client_main" />
+        <activity android:name=".PaymentOptionsActivity"></activity>
     </application>
 
 </manifest>
