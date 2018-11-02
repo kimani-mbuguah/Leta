@@ -2,9 +2,11 @@ package com.africastalking.leta;
 
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -51,6 +53,15 @@ public class HomeFragment extends Fragment {
 
         homeContentAdapter homeContentAdapter = new homeContentAdapter(container.getContext(), foodsList);
         homeRV.setAdapter(homeContentAdapter);
+
+        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.my_cart_fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent myCartIntent = new Intent(getActivity().getApplicationContext(),MyCartActivity.class);
+                startActivity(myCartIntent);
+            }
+        });
 
         return view;
     }
