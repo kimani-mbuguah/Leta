@@ -3,15 +3,22 @@ package com.africastalking.leta;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class ClientSignUpActivity extends AppCompatActivity {
     private EditText clientName, clientEmail, clientPhone, clientPass, clientPassConfirm;
@@ -24,6 +31,9 @@ public class ClientSignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client_sign_up);
 
+        //initialize firebaseAuth instance
+
+        mAuth = FirebaseAuth.getInstance();
         //initialize fields
 
         clientName = findViewById(R.id.client_reg_name);
@@ -125,8 +135,29 @@ public class ClientSignUpActivity extends AppCompatActivity {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
+            createUser(name, email, phone, password);
 
         }
+    }
+
+    private void createUser(String name, String email, String phone, String password) {
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()){
+                            //signed in successfully
+                            Toast.makeText(ClientSignUpActivity.this,"Account created successfully",Toast.LENGTH_LONG).show();
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            Intent clientMainActivityIntent = new Intent(ClientSignUpActivity.this, ClientMainActivity.class);
+                            clientMainActivityIntent.putExtra("client_id", user);
+                            startActivity(clientMainActivityIntent);
+                            showProgress(false);
+                        }else{
+                            Toast.makeText(ClientSignUpActivity.this, "Action unsuccessful. Check your internet connection and try again", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
     }
 
     /**
