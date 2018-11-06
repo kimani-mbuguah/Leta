@@ -16,7 +16,7 @@
 
     <LinearLayout
         android:id="@+id/l1"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -37,10 +37,12 @@
             android:textStyle="bold" />
 
         <TextView
-            android:layout_width="398dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="50dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
             android:text="We're super excited to have you onboard !"
             android:textAlignment="center"
             android:textColor="@color/colorWhite"

@@ -152,7 +152,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="7"
-                android:text="Cah on Delivery" />
+                android:text="Cash on Delivery" />
         </LinearLayout>
 
         <View

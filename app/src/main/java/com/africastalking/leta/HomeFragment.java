@@ -41,10 +41,8 @@ public class HomeFragment extends Fragment {
         foodsList = new ArrayList<>();
         foodsList.add(new ModelHomeContent(R.drawable.bg1,"Managu Mingi","Kibandaski", "KSH: 200"));
         foodsList.add(new ModelHomeContent(R.drawable.bg,"Beans Chapo","Kibandaski", "KSH: 250"));
-        foodsList.add(new ModelHomeContent(R.drawable.bg1,"Kichwa Tamu","KFC", "KSH: 500"));
-        foodsList.add(new ModelHomeContent(R.drawable.bg,"Supu ya Miguu","Java House", "KSH: 100"));
-        foodsList.add(new ModelHomeContent(R.drawable.bg1,"Ugali Matumbo","Kibanda 2", "KSH: 300"));
-        foodsList.add(new ModelHomeContent(R.drawable.bg,"Rice Beans","Java House", "KSH: 50"));
+        foodsList.add(new ModelHomeContent(R.drawable.bg,"Beans Mchele","Kibandaski", "KSH: 150"));
+        foodsList.add(new ModelHomeContent(R.drawable.bg,"Beans Chapo","Kibandaski", "KSH: 250"));
 
         homeRV = view.findViewById(R.id.homeRV);
         LinearLayoutManager layoutManager = new LinearLayoutManager((container.getContext()));

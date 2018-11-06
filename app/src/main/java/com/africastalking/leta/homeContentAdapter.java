@@ -19,10 +19,10 @@ import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
 import java.util.ArrayList;
 
 public class homeContentAdapter extends RecyclerView.Adapter<homeContentAdapter.ViewHolder> {
-    private Context mContext;
+    Context mContext;
     Dialog mDialog;
-    private  ArrayList<ModelHomeContent>mList;
-    homeContentAdapter(Context context, ArrayList<ModelHomeContent> list){
+    public  ArrayList<ModelHomeContent>mList;
+    public homeContentAdapter(Context context, ArrayList<ModelHomeContent> list){
         mContext = context;
         mList = list;
     }
