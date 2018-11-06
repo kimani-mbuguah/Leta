@@ -147,14 +147,15 @@ public class ClientSignUpActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
                             //signed in successfully
+                            showProgress(false);
                             Toast.makeText(ClientSignUpActivity.this,"Account created successfully",Toast.LENGTH_LONG).show();
                             FirebaseUser user = mAuth.getCurrentUser();
                             Intent clientMainActivityIntent = new Intent(ClientSignUpActivity.this, ClientMainActivity.class);
                             clientMainActivityIntent.putExtra("client_id", user);
                             startActivity(clientMainActivityIntent);
-                            showProgress(false);
                         }else{
-                            Toast.makeText(ClientSignUpActivity.this, "Action unsuccessful. Check your internet connection and try again", Toast.LENGTH_LONG).show();
+                            showProgress(false);
+                            Toast.makeText(ClientSignUpActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
                         }
                     }
                 });

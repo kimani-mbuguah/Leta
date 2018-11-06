@@ -24,7 +24,7 @@
             android:layout_marginRight="40dp">
 
             <EditText
-                android:id="@+id/emailinput"
+                android:id="@+id/client_login_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/colorWhite"
@@ -39,7 +39,7 @@
                 android:id="@+id/passwordinput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/emailinput"
+                android:layout_below="@id/client_login_email"
                 android:layout_marginTop="30dp"
                 android:backgroundTint="@color/colorWhite"
                 android:fontFamily="sans-serif-light"

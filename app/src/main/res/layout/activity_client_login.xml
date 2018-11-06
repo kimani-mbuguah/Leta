@@ -1,34 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/welcomebg"
-    tools:context=".ClientLoginActivity">
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:background="@drawable/gradient_bg"
+    tools:context=".ClientSignUpActivity">
 
-    <RelativeLayout
+
+
+    <!-- Login progress -->
+    <ProgressBar
+        android:id="@+id/client_login_progress_bar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:visibility="gone" />
+
+    <ScrollView
+        android:id="@+id/client_login_form"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="198dp">
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="0dp"
-            android:alpha="0.8"
-            android:background="@drawable/gradient_bg" />
-
-        <RelativeLayout
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:id="@+id/email_login_form"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp">
-
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:text="Leta"
+                android:textColor="@color/colorWhite"
+                android:textSize="60sp"
+                android:textStyle="bold" />
             <EditText
-                android:id="@+id/emailinput"
+                android:id="@+id/client_login_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/colorWhite"
@@ -37,14 +52,19 @@
                 android:inputType="textEmailAddress"
                 android:textColor="@color/colorWhite"
                 android:textColorHint="@color/colorWhite"
-                android:textSize="17sp" />
+                android:textSize="17sp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                />
 
             <EditText
-                android:id="@+id/passwordinput"
+                android:id="@+id/client_login_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/emailinput"
+                android:layout_below="@id/client_login_email"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="30dp"
+                android:layout_marginEnd="8dp"
                 android:backgroundTint="@color/colorWhite"
                 android:fontFamily="sans-serif-light"
                 android:hint="Password"
@@ -52,42 +72,29 @@
                 android:textColor="@color/colorWhite"
                 android:textColorHint="@color/colorWhite"
                 android:textSize="17sp" />
-        </RelativeLayout>
+            <Button
+                android:id="@+id/btnClientSignIn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/button_white"
+                android:text="Sign In"
+                android:textColor="@color/colorPrimary" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:text="Leta"
-            android:textColor="@color/colorWhite"
-            android:textSize="60sp"
-            android:textStyle="bold" />
-
-        <Button
-            android:id="@+id/btnClientSignIn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginBottom="112dp"
-            android:background="@drawable/button_white"
-            android:text="Sign In"
-            android:textColor="@color/colorPrimary" />
-
-        <Button
-            android:id="@+id/btnClientSignUP"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginBottom="44dp"
-            android:background="@drawable/button_red"
-            android:text="Sign Up"
-            android:textColor="@color/colorWhite" />
-    </RelativeLayout>
-
-</android.support.constraint.ConstraintLayout>
+            <Button
+                android:id="@+id/btnClientSignUP"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/button_red"
+                android:text="Sign Up"
+                android:textColor="@color/colorWhite" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
