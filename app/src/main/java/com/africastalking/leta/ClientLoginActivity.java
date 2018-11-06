@@ -16,14 +16,14 @@ public class ClientLoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client_login);
 
-        msignUpBtn = findViewById(R.id.btnSignUpClient);
-        mSignInBtn = findViewById(R.id.btSignIn);
+        msignUpBtn = findViewById(R.id.btnClientSignUP);
+        mSignInBtn = findViewById(R.id.btnClientSignIn);
 
         //set click listener
         msignUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent signUpIntent = new Intent(ClientLoginActivity.this, ClientMainActivity.class);
+                Intent signUpIntent = new Intent(ClientLoginActivity.this, ClientSignUpActivity.class);
                 startActivity(signUpIntent);
             }
         });
