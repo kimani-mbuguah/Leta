@@ -3,9 +3,11 @@ package com.africastalking.leta;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -16,8 +18,13 @@ import android.widget.ImageView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -28,6 +35,8 @@ import com.theartofdev.edmodo.cropper.CropImageView;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 import id.zelory.compressor.Compressor;
@@ -89,12 +98,11 @@ public class NewItemActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 final String desc = mItemDesc.getText().toString();
-                if(!TextUtils.isEmpty(desc) && itemImageUri != null){
+                if(!TextUtils.isEmpty(desc)){
                     showProgress(true);
                     final String randomName = UUID.randomUUID().toString();
 
                     //image upload
-                    // PHOTO UPLOAD
                     File newImageFile = new File(itemImageUri.getPath());
                     try {
 
@@ -110,22 +118,90 @@ public class NewItemActivity extends AppCompatActivity {
 
                     ByteArrayOutputStream baos = new ByteArrayOutputStream();
                     compressedImageFile.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-                    byte[] thumbData = baos.toByteArray();
+                    byte[] imageData = baos.toByteArray();
 
-                    UploadTask uploadTask = mStorageReference.child("item_images/thumbs")
-                            .child(randomName + ".jpg").putBytes(thumbData);
-
-                    uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    UploadTask filePath = mStorageReference.child("item_images").child(randomName + ".jpg").putBytes(imageData);
+                    filePath.addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                         @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                            //String downloadthumbUri = taskSnapshot.getDownloadUrl().toString();
+                        public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                            final String downloadUri = task.getResult().toString();
+                            if (task.isSuccessful()){
+                                File newThumbFile = new File(itemImageUri.getPath());
+                                try {
+
+                                    compressedImageFile = new Compressor(NewItemActivity.this)
+                                            .setMaxHeight(100)
+                                            .setMaxWidth(100)
+                                            .setQuality(1)
+                                            .compressToBitmap(newThumbFile);
+
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+
+                                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                                compressedImageFile.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                                byte[] thumbData = baos.toByteArray();
+
+                                UploadTask uploadTask = mStorageReference.child("item_images/thumbs")
+                                        .child(randomName + ".jpg").putBytes(thumbData);
+
+                                uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                    @Override
+                                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                        String downloadthumbUri = taskSnapshot.getMetadata().getReference().getDownloadUrl().toString();
+
+                                        //String downloadthumbUri = taskSnapshot.getDownloadUrl().toString();
+
+                                        Map<String, Object> imagesMap = new HashMap<>();
+                                        imagesMap.put("image_url", downloadUri);
+                                        imagesMap.put("image_thumb", downloadthumbUri);
+                                        imagesMap.put("desc", desc);
+                                        imagesMap.put("timestamp", FieldValue.serverTimestamp());
+
+
+
+                                        firebaseFirestore.collection("Posts").add(imagesMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<DocumentReference> task) {
+
+                                                if(task.isSuccessful()){
+
+                                                    Toast.makeText(NewItemActivity.this, "Item Added Successfully", Toast.LENGTH_LONG).show();
+                                                   /* Intent mainIntent = new Intent(NewPostActivity.this, MainActivity.class);
+                                                    startActivity(mainIntent);
+                                                    finish();*/
+
+                                                } else {
+
+
+                                                }
+
+                                                showProgress(false);
+
+                                            }
+                                        });
+
+
+
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(NewItemActivity.this, "An Unknown Error Occurred", Toast.LENGTH_LONG).show();
+                                    }
+                                });
+
+                            }
                         }
                     });
 
 
+                }else{
+                    Toast.makeText(NewItemActivity.this, "Something's wrong",Toast.LENGTH_LONG).show();
                 }
-                //Toast.makeText(NewItemActivity.this, "item added successfully",Toast.LENGTH_LONG).show();
+
+
             }
         });
     }

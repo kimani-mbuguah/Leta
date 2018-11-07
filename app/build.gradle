@@ -40,4 +40,5 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore:17.0.1'
 
     implementation 'id.zelory:compressor:2.1.0'
+    implementation 'com.google.firebase:firebase-firestore:17.0.1'
 }
