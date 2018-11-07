@@ -1,5 +1,7 @@
 package com.africastalking.leta;
 
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +11,11 @@ import android.widget.ImageView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
 public class NewItemActivity extends AppCompatActivity {
     private ImageView newItemImage;
     private EditText mItemName;
@@ -16,6 +23,13 @@ public class NewItemActivity extends AppCompatActivity {
     private Button addNewItemBtn;
     private android.support.v7.widget.Toolbar addNewitemToolbar;
     private View mProgressView;
+    private Uri postImageUri = null;
+    private FirebaseFirestore firebaseFirestore;
+    private FirebaseAuth firebaseAuth;
+    private String current_user_id;
+    private StorageReference mStorageReference;
+    private Bitmap compressedImageFile;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +40,11 @@ public class NewItemActivity extends AppCompatActivity {
         addNewitemToolbar = findViewById(R.id.add_item_toolbar);
         setSupportActionBar(addNewitemToolbar);
         getSupportActionBar().setTitle("Leta");
+
+        //firebase
+        mStorageReference = FirebaseStorage.getInstance().getReference();
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
 
         //initialize text inputs
         newItemImage = findViewById(R.id.new_item_image);

@@ -32,5 +32,10 @@ dependencies {
     //elegant button
     implementation 'com.cepheuen.elegant-number-button:lib:1.0.2'
 
+    //firebase
     implementation 'com.google.firebase:firebase-auth:16.0.1'
+    implementation 'com.theartofdev.edmodo:android-image-cropper:2.6.+'
+    implementation 'com.google.firebase:firebase-storage:16.0.1'
+    implementation 'com.google.firebase:firebase-auth:16.0.1'
+    implementation 'com.google.firebase:firebase-firestore:17.0.1'
 }
