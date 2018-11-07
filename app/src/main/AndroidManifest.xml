@@ -39,7 +39,8 @@
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login" />
-        <activity android:name=".NewItemActivity"></activity>
+        <activity android:name=".NewItemActivity"
+            android:parentActivityName=".ClientMainActivity"></activity>
     </application>
 
 </manifest>
