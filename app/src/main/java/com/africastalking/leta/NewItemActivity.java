@@ -15,6 +15,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 public class NewItemActivity extends AppCompatActivity {
     private ImageView newItemImage;
@@ -40,11 +42,15 @@ public class NewItemActivity extends AppCompatActivity {
         addNewitemToolbar = findViewById(R.id.add_item_toolbar);
         setSupportActionBar(addNewitemToolbar);
         getSupportActionBar().setTitle("Leta");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //firebase
         mStorageReference = FirebaseStorage.getInstance().getReference();
         firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
+
+        current_user_id = firebaseAuth.getCurrentUser().getUid();
+
 
         //initialize text inputs
         newItemImage = findViewById(R.id.new_item_image);
@@ -52,6 +58,18 @@ public class NewItemActivity extends AppCompatActivity {
         mItemName = findViewById(R.id.new_item_name);
         mItemDesc = findViewById(R.id.new_item_desc);
         addNewItemBtn = findViewById(R.id.btnAddNewItem);
+
+        //upload image
+        newItemImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CropImage.activity()
+                        .setGuidelines(CropImageView.Guidelines.ON)
+                        .setMinCropResultSize(512, 512)
+                        .setAspectRatio(1, 1)
+                        .start(NewItemActivity.this);
+            }
+        });
 
         addNewItemBtn.setOnClickListener(new View.OnClickListener() {
             @Override
