@@ -16,10 +16,12 @@ import android.widget.ImageView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
@@ -108,7 +110,18 @@ public class NewItemActivity extends AppCompatActivity {
 
                     ByteArrayOutputStream baos = new ByteArrayOutputStream();
                     compressedImageFile.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-                    byte[] imageData = baos.toByteArray();
+                    byte[] thumbData = baos.toByteArray();
+
+                    UploadTask uploadTask = mStorageReference.child("item_images/thumbs")
+                            .child(randomName + ".jpg").putBytes(thumbData);
+
+                    uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                            //String downloadthumbUri = taskSnapshot.getDownloadUrl().toString();
+                        }
+                    });
 
 
                 }
