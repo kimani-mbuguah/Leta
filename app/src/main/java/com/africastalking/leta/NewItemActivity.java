@@ -105,7 +105,8 @@ public class NewItemActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 final String desc = mItemDesc.getText().toString();
-                if(!TextUtils.isEmpty(desc) && itemImageUri != null){
+                final String item_name = mItemName.getText().toString();
+                if(!TextUtils.isEmpty(desc) && !TextUtils.isEmpty(item_name) && itemImageUri != null){
                     showProgress(true);
                     final String randomName = UUID.randomUUID().toString();
 
@@ -163,12 +164,13 @@ public class NewItemActivity extends AppCompatActivity {
                                         Map<String, Object> imagesMap = new HashMap<>();
                                         imagesMap.put("image_url", downloadUri);
                                         imagesMap.put("image_thumb", downloadthumbUri);
-                                        imagesMap.put("desc", desc);
+                                        imagesMap.put("item_name", item_name);
+                                        imagesMap.put("item_desc", desc);
                                         imagesMap.put("timestamp", FieldValue.serverTimestamp());
 
 
 
-                                        firebaseFirestore.collection("Posts").add(imagesMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                                        firebaseFirestore.collection("Menu").add(imagesMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                                             @Override
                                             public void onComplete(@NonNull Task<DocumentReference> task) {
 
@@ -180,8 +182,8 @@ public class NewItemActivity extends AppCompatActivity {
                                                     finish();*/
 
                                                 } else {
-
-
+                                                    Toast.makeText(NewItemActivity.this, task.getException().getMessage(),
+                                                            Toast.LENGTH_SHORT).show();
                                                 }
 
                                                 showProgress(false);
