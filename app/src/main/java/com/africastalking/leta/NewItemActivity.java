@@ -58,6 +58,7 @@ public class NewItemActivity extends AppCompatActivity {
     private String current_user_id;
     private StorageReference mStorageReference;
     private Bitmap compressedImageFile;
+    private static final int GALLERY_PICK = 1;
 
 
     @Override
@@ -95,23 +96,16 @@ public class NewItemActivity extends AppCompatActivity {
                         .setMinCropResultSize(512, 512)
                         .setAspectRatio(1, 1)
                         .start(NewItemActivity.this);
+
             }
         });
 
-        try {
-            Bitmap bitmap = BitmapFactory.decodeStream((InputStream)new URL(item));
-            newItemImage.setImageBitmap(bitmap);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
         addNewItemBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final String desc = mItemDesc.getText().toString();
-                if(!TextUtils.isEmpty(desc)){
+                if(!TextUtils.isEmpty(desc) && itemImageUri != null){
                     showProgress(true);
                     final String randomName = UUID.randomUUID().toString();
 
@@ -217,6 +211,27 @@ public class NewItemActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            if (resultCode == RESULT_OK) {
+
+                itemImageUri = result.getUri();
+                newItemImage.setImageURI(itemImageUri);
+
+            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+
+                Exception error = result.getError();
+
+            }
+        }
+
     }
 
     /**
