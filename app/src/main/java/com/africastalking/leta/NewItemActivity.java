@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
@@ -51,14 +52,13 @@ public class NewItemActivity extends AppCompatActivity {
     private EditText mItemDesc;
     private Button addNewItemBtn;
     private android.support.v7.widget.Toolbar addNewitemToolbar;
-    private View mProgressView;
     private Uri itemImageUri = null;
     private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth firebaseAuth;
     private String current_user_id;
     private StorageReference mStorageReference;
     private Bitmap compressedImageFile;
-    private static final int GALLERY_PICK = 1;
+    private ProgressBar newItemProgress;
 
 
     @Override
@@ -82,10 +82,10 @@ public class NewItemActivity extends AppCompatActivity {
 
         //initialize text inputs
         newItemImage = findViewById(R.id.new_item_image);
-        mProgressView = findViewById(R.id.add_item_progress_bar);
         mItemName = findViewById(R.id.new_item_name);
         mItemDesc = findViewById(R.id.new_item_desc);
         addNewItemBtn = findViewById(R.id.btnAddNewItem);
+        newItemProgress = findViewById(R.id.new_item_progress);
 
         //upload image
         newItemImage.setOnClickListener(new View.OnClickListener() {
@@ -106,8 +106,9 @@ public class NewItemActivity extends AppCompatActivity {
             public void onClick(View v) {
                 final String desc = mItemDesc.getText().toString();
                 final String item_name = mItemName.getText().toString();
+
                 if(!TextUtils.isEmpty(desc) && !TextUtils.isEmpty(item_name) && itemImageUri != null){
-                    showProgress(true);
+                    newItemProgress.setVisibility(View.VISIBLE);
                     final String randomName = UUID.randomUUID().toString();
 
                     //image upload
@@ -186,7 +187,7 @@ public class NewItemActivity extends AppCompatActivity {
                                                             Toast.LENGTH_SHORT).show();
                                                 }
 
-                                                showProgress(false);
+                                                newItemProgress.setVisibility(View.INVISIBLE);
 
                                             }
                                         });
@@ -234,30 +235,5 @@ public class NewItemActivity extends AppCompatActivity {
             }
         }
 
-    }
-
-    /**
-     * Shows the progress UI and hides the login form.
-     */
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
-    private void showProgress(final boolean show) {
-        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
-        // for very easy animations. If available, use these APIs to fade-in
-        // the progress spinner.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-            int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
-            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-            mProgressView.animate().setDuration(shortAnimTime).alpha(
-                    show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-                }
-            });
-        } else {
-            // The ViewPropertyAnimator APIs are not available, so simply show
-            // and hide the relevant UI components.
-            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-        }
     }
 }
