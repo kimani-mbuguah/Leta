@@ -50,8 +50,8 @@ public class homeContentAdapter extends RecyclerView.Adapter<homeContentAdapter.
         ModelHomeContent modelHomeContent = homeItemsList.get(position);
         viewHolder.setIsRecyclable(false);
 
-        String itemName = modelHomeContent.getName();
-        viewHolder.item_name.setText("sdfjdsf");
+        String itemName = modelHomeContent.getItem_name();
+        viewHolder.item_name.setText("eric");
 
         //String itemName = homeItemsList.get(position).getName();
 
