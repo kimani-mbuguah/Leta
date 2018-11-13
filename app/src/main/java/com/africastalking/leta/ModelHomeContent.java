@@ -1,22 +1,13 @@
 package com.africastalking.leta;
 
 public class ModelHomeContent {
-    private int image;
-    private String name, restaurant, price;
+    public String name;
 
-    public ModelHomeContent(int image, String name, String restaurant, String price) {
-        this.image = image;
+    public ModelHomeContent() {
+    }
+
+    public ModelHomeContent(String name) {
         this.name = name;
-        this.restaurant = restaurant;
-        this.price = price;
-    }
-
-    public int getImage() {
-        return image;
-    }
-
-    public void setImage(int image) {
-        this.image = image;
     }
 
     public String getName() {
@@ -25,21 +16,5 @@ public class ModelHomeContent {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getRestaurant() {
-        return restaurant;
-    }
-
-    public void setRestaurant(String restaurant) {
-        this.restaurant = restaurant;
-    }
-
-    public String getPrice() {
-        return price;
-    }
-
-    public void setPrice(String price) {
-        this.price = price;
     }
 }

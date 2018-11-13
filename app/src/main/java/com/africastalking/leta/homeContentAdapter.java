@@ -15,39 +15,48 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class homeContentAdapter extends RecyclerView.Adapter<homeContentAdapter.ViewHolder> {
-    Context mContext;
+
     Dialog mDialog;
-    public  ArrayList<ModelHomeContent>mList;
-    public homeContentAdapter(Context context, ArrayList<ModelHomeContent> list){
-        mContext = context;
-        mList = list;
+    public List<ModelHomeContent> homeItemsList;
+    public Context context;
+
+    private FirebaseAuth firebaseAuth;
+    private FirebaseFirestore firebaseFirestore;
+
+    public homeContentAdapter(List<ModelHomeContent> homeItemsList){
+        this.homeItemsList = homeItemsList;
     }
-    @NonNull
+
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        LayoutInflater layoutInflater = LayoutInflater.from(mContext);
-        View view = layoutInflater.inflate(R.layout.home_rv_items,viewGroup,false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.home_rv_items,viewGroup,false);
+        context = viewGroup.getContext();
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
         ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
-        ModelHomeContent modelHomeContent = mList.get(position);
-        ImageView image = viewHolder.item_image;
-        TextView name,price,restaurant;
-        name = viewHolder.item_name;
-        price = viewHolder.item_price;
-        restaurant = viewHolder.restaurant_name;
 
-        image.setImageResource(modelHomeContent.getImage());
-        name.setText(modelHomeContent.getName());
-        price.setText(modelHomeContent.getPrice());
-        restaurant.setText(modelHomeContent.getRestaurant());
+        ModelHomeContent modelHomeContent = homeItemsList.get(position);
+        viewHolder.setIsRecyclable(false);
+
+        String itemName = modelHomeContent.getName();
+        viewHolder.item_name.setText("sdfjdsf");
+
+        //String itemName = homeItemsList.get(position).getName();
+
+
+        //holder.setDescText(desc_data);
 
         viewHolder.viewItemBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,7 +90,7 @@ public class homeContentAdapter extends RecyclerView.Adapter<homeContentAdapter.
 
     @Override
     public int getItemCount() {
-        return mList.size();
+        return homeItemsList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

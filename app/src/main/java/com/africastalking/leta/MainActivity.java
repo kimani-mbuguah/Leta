@@ -28,9 +28,6 @@ import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     Dialog mDialog;
-    private RecyclerView homeRV;
-    ArrayList<ModelHomeContent> foodsList;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,21 +35,6 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        foodsList = new ArrayList<>();
-        foodsList.add(new ModelHomeContent(R.drawable.bg1,"Managu Mingi","Kibandaski", "KSH: 200"));
-        foodsList.add(new ModelHomeContent(R.drawable.bg,"Beans Chapo","Kibandaski", "KSH: 250"));
-        foodsList.add(new ModelHomeContent(R.drawable.bg1,"Kichwa Tamu","KFC", "KSH: 500"));
-        foodsList.add(new ModelHomeContent(R.drawable.bg,"Supu ya Miguu","Java House", "KSH: 100"));
-        foodsList.add(new ModelHomeContent(R.drawable.bg1,"Ugali Matumbo","Kibanda 2", "KSH: 300"));
-        foodsList.add(new ModelHomeContent(R.drawable.bg,"Rice Beans","Java House", "KSH: 50"));
-
-        homeRV = findViewById(R.id.homeRV);
-        LinearLayoutManager layoutManager = new LinearLayoutManager((this));
-        RecyclerView.LayoutManager homeLinearLayoutManager = layoutManager;
-        homeRV.setLayoutManager(homeLinearLayoutManager);
-
-        homeContentAdapter homeContentAdapter = new homeContentAdapter(this, foodsList);
-        homeRV.setAdapter(homeContentAdapter);
 
         mDialog = new Dialog(this);
 
@@ -75,30 +57,6 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
     }
 
-    public void ViewItem(View v){
-        TextView txtclose;
-        Button btnAddToCart;
-        mDialog.setContentView(R.layout.item_popup);
-        txtclose =(TextView) mDialog.findViewById(R.id.txtclose);
-        txtclose.setText("X");
-        final ElegantNumberButton addQuantityButton = mDialog.findViewById(R.id.addQuantityBtn);
-
-        addQuantityButton.setOnClickListener(new ElegantNumberButton.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String num = addQuantityButton.getNumber();
-            }
-        });
-        btnAddToCart  = (Button) mDialog.findViewById(R.id.btnAddToCart);
-        txtclose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mDialog.dismiss();
-            }
-        });
-        mDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        mDialog.show();
-    }
 
     @Override
     public void onBackPressed() {
