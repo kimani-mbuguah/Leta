@@ -100,6 +100,7 @@ public class HomeFragment extends Fragment {
 
                                 if (isFirstPageFirstLoad){
                                     foodsList.add(modelHomeContent);
+                                    homeContentAdapter.notifyDataSetChanged();
                                 }else {
                                     foodsList.add(0, modelHomeContent);
                                 }
