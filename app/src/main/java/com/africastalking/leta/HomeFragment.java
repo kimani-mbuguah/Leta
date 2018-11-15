@@ -44,8 +44,6 @@ public class HomeFragment extends Fragment {
     private FirebaseAuth firebaseAuth;
     private homeContentAdapter homeContentAdapter;
 
-    private DocumentSnapshot lastVisible;
-    private Boolean isFirstPageFirstLoad = true;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -59,7 +57,6 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home,container, false);
         foodsList = new ArrayList<>();
 
-        //foodsList.add(new ModelHomeContent(R.drawable.bg,"Beans Chapo","Kibandaski", "KSH: 250"));
 
         homeRV = view.findViewById(R.id.homeRV);
         firebaseAuth = FirebaseAuth.getInstance();
@@ -71,42 +68,23 @@ public class HomeFragment extends Fragment {
 
         if(firebaseAuth.getCurrentUser() != null) {
             firebaseFirestore = FirebaseFirestore.getInstance();
-            homeRV.addOnScrollListener(new RecyclerView.OnScrollListener() {
-                @Override
-                public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                    super.onScrolled(recyclerView, dx, dy);
-                    Boolean reachedBottom = !recyclerView.canScrollVertically(1);
-                    
-                    if (reachedBottom){
-                        loadMoreItems();
-                    }
-                }
-            });
 
-            Query firstQuery = firebaseFirestore.collection("Menu").orderBy("timestamp", Query.Direction.DESCENDING).limit(3);
+            Query firstQuery = firebaseFirestore.collection("Menu").orderBy("timestamp", Query.Direction.DESCENDING);
             firstQuery.addSnapshotListener(getActivity(), new EventListener<QuerySnapshot>() {
                 @Override
                 public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
                     if(!queryDocumentSnapshots.isEmpty()){
-                        if (isFirstPageFirstLoad){
-                            lastVisible = queryDocumentSnapshots.getDocuments().get(queryDocumentSnapshots.size() - 1);
-                            foodsList.clear();
-                        }
+
 
                         for (DocumentChange doc : queryDocumentSnapshots.getDocumentChanges()){
                             if (doc.getType() == DocumentChange.Type.ADDED){
                                 String foodItemId = doc.getDocument().getId();
                                 ModelHomeContent modelHomeContent = doc.getDocument().toObject(ModelHomeContent.class);
 
-                                if (isFirstPageFirstLoad){
-                                    foodsList.add(modelHomeContent);
-                                    homeContentAdapter.notifyDataSetChanged();
-                                }else {
-                                    foodsList.add(0, modelHomeContent);
-                                }
-                            }
+                                foodsList.add(modelHomeContent);
+                                homeContentAdapter.notifyDataSetChanged();
 
-                            isFirstPageFirstLoad = false;
+                            }
                         }
                     }
                 }
@@ -125,26 +103,4 @@ public class HomeFragment extends Fragment {
 
         return view;
     }
-
-    private void loadMoreItems() {
-        Query nextQuery = firebaseFirestore.collection("Menu").orderBy("timestamp",Query.Direction.DESCENDING).startAfter(lastVisible).limit(3);
-        nextQuery.addSnapshotListener(getActivity(), new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                if(!queryDocumentSnapshots.isEmpty()){
-                    lastVisible = queryDocumentSnapshots.getDocuments().get(queryDocumentSnapshots.size() - 1);
-                    for (DocumentChange doc : queryDocumentSnapshots.getDocumentChanges()){
-                        if (doc.getType() == DocumentChange.Type.ADDED){
-                            String foodItemId = doc.getDocument().getId();
-                            ModelHomeContent modelHomeContent = doc.getDocument().toObject(ModelHomeContent.class);
-                            foodsList.add(modelHomeContent);
-
-                            homeContentAdapter.notifyDataSetChanged();
-                        }
-                    }
-                }
-            }
-        });
-    }
-
 }
