@@ -20,6 +20,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
+import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -129,8 +130,34 @@ public class NewItemActivity extends AppCompatActivity {
                     compressedImageFile.compress(Bitmap.CompressFormat.JPEG, 100, baos);
                     byte[] imageData = baos.toByteArray();
 
-                    UploadTask filePath = mStorageReference.child("item_images").child(randomName + ".jpg").putBytes(imageData);
-                    filePath.addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                    final StorageReference ref = mStorageReference.child("item_images").child(randomName + ".jpg");
+
+                    UploadTask uploadTask = ref.putBytes(imageData);
+
+                    Task<Uri> uriTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                        @Override
+                        public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                            if (!task.isSuccessful()){
+                                throw task.getException();
+                            }
+                            return ref.getDownloadUrl();
+                        }
+                    }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Uri> task) {
+                            if (task.isSuccessful()){
+                                Uri downloadUri = task.getResult();
+                                String finalDownloadUri = downloadUri.toString();
+                                Toast.makeText(NewItemActivity.this, finalDownloadUri, Toast.LENGTH_LONG).show();
+                            }else{
+                                //error handling
+                            }
+                        }
+                    });
+
+
+
+                    /*filePath.addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                             final String downloadUri = task.getResult().toString();
@@ -180,7 +207,7 @@ public class NewItemActivity extends AppCompatActivity {
                                                     Toast.makeText(NewItemActivity.this, "Item Added Successfully", Toast.LENGTH_LONG).show();
                                                    /* Intent mainIntent = new Intent(NewPostActivity.this, MainActivity.class);
                                                     startActivity(mainIntent);
-                                                    finish();*/
+                                                    finish();
 
                                                 } else {
                                                     Toast.makeText(NewItemActivity.this, task.getException().getMessage(),
@@ -204,7 +231,7 @@ public class NewItemActivity extends AppCompatActivity {
 
                             }
                         }
-                    });
+                    });*/
 
 
                 }else{
