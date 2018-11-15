@@ -6,6 +6,7 @@ import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.NonNull;
@@ -87,6 +88,8 @@ public class NewItemActivity extends AppCompatActivity {
         mItemDesc = findViewById(R.id.new_item_desc);
         addNewItemBtn = findViewById(R.id.btnAddNewItem);
         newItemProgress = findViewById(R.id.new_item_progress);
+        newItemProgress.getProgressDrawable().setColorFilter(
+                Color.GREEN, android.graphics.PorterDuff.Mode.SRC_IN);
 
         //upload image
         newItemImage.setOnClickListener(new View.OnClickListener() {
