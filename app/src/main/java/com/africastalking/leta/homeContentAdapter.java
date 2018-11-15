@@ -14,6 +14,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -52,6 +54,13 @@ public class homeContentAdapter extends RecyclerView.Adapter<homeContentAdapter.
 
         String itemName = modelHomeContent.getItem_name();
         viewHolder.item_name.setText(itemName);
+
+        String thumbImageUrl = modelHomeContent.getThumb_image();
+        String imageUrl = modelHomeContent.getImage_url();
+
+        viewHolder.setItemImage(imageUrl,thumbImageUrl);
+
+
 
         //String itemName = homeItemsList.get(position).getName();
 
@@ -106,5 +115,16 @@ public class homeContentAdapter extends RecyclerView.Adapter<homeContentAdapter.
             restaurant_name = itemView.findViewById(R.id.restaurant_name);
             viewItemBtn = itemView.findViewById(R.id.view_item_btn);
         }
+
+        public void setItemImage(String imageUrl, String thumbImageUrl) {
+            RequestOptions requestOptions = new RequestOptions();
+            requestOptions.placeholder(R.drawable.asdf);
+
+            Glide.with(context).applyDefaultRequestOptions(requestOptions).load(imageUrl).thumbnail(
+                    Glide.with(context).load(thumbImageUrl)
+            ).into(item_image);
+
+        }
+
     }
 }
