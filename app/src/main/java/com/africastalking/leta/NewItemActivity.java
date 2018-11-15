@@ -146,11 +146,75 @@ public class NewItemActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<Uri> task) {
                             if (task.isSuccessful()){
-                                Uri downloadUri = task.getResult();
-                                String finalDownloadUri = downloadUri.toString();
-                                Toast.makeText(NewItemActivity.this, finalDownloadUri, Toast.LENGTH_LONG).show();
+                                Uri uri = task.getResult();
+                                final String imageDownloadUri = uri.toString();
+
+                                File newThumbFile = new File(itemImageUri.getPath());
+                                try {
+
+                                    compressedImageFile = new Compressor(NewItemActivity.this)
+                                            .setMaxHeight(100)
+                                            .setMaxWidth(100)
+                                            .setQuality(1)
+                                            .compressToBitmap(newThumbFile);
+
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+
+                                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                                compressedImageFile.compress(Bitmap.CompressFormat.JPEG,100,baos);
+                                byte[] thumbData = baos.toByteArray();
+
+                                final StorageReference reference = mStorageReference.child("item_images/thumbs")
+                                        .child(randomName + ".jpg");
+                                UploadTask thumbNailUploadTask = reference.putBytes(thumbData);
+                                Task<Uri> taskUri = thumbNailUploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                                    @Override
+                                    public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                                        if (!task.isSuccessful()){
+                                            throw task.getException();
+                                        }
+                                        return reference.getDownloadUrl();
+                                    }
+                                }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Uri> task) {
+                                        Uri thumbUri = task.getResult();
+                                        String thumbDownloaduri = thumbUri.toString();
+
+                                        //insert details abouth the food item into firebase firestore
+                                        Map<String, Object> imagesMap = new HashMap<>();
+                                        imagesMap.put("image_url",imageDownloadUri);
+                                        imagesMap.put("image_thumb", thumbDownloaduri);
+                                        imagesMap.put("item_name", item_name);
+                                        imagesMap.put("item_desc", desc);
+                                        imagesMap.put("timestamp", FieldValue.serverTimestamp());
+
+                                        firebaseFirestore.collection("Menu").add(imagesMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<DocumentReference> task) {
+
+                                                if(task.isSuccessful()){
+
+                                                    Toast.makeText(NewItemActivity.this, "Item Added Successfully", Toast.LENGTH_LONG).show();
+                                                   /* Intent mainIntent = new Intent(NewPostActivity.this, MainActivity.class);
+                                                    startActivity(mainIntent);
+                                                    finish();*/
+
+                                                } else {
+                                                    Toast.makeText(NewItemActivity.this, task.getException().getMessage(),
+                                                            Toast.LENGTH_SHORT).show();
+                                                }
+
+                                                newItemProgress.setVisibility(View.INVISIBLE);
+
+                                            }
+                                        });
+                                    }
+                                });
                             }else{
-                                //error handling
+                                Toast.makeText(NewItemActivity.this, task.getException().getMessage(),Toast.LENGTH_LONG).show();
                             }
                         }
                     });
