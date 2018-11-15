@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -54,7 +55,7 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_home,container, false);
+        final View view = inflater.inflate(R.layout.fragment_home,container, false);
         foodsList = new ArrayList<>();
 
 
@@ -73,18 +74,34 @@ public class HomeFragment extends Fragment {
             firstQuery.addSnapshotListener(getActivity(), new EventListener<QuerySnapshot>() {
                 @Override
                 public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+
+                    if (e != null) {
+                        Toast.makeText(view.getContext(),"Listen failed",Toast.LENGTH_LONG).show();
+                        //Log.w(TAG, "Listen failed.", e);
+                        return;
+                    }
+
+
                     if(!queryDocumentSnapshots.isEmpty()){
 
 
                         for (DocumentChange doc : queryDocumentSnapshots.getDocumentChanges()){
-                            if (doc.getType() == DocumentChange.Type.ADDED){
-                                String foodItemId = doc.getDocument().getId();
-                                ModelHomeContent modelHomeContent = doc.getDocument().toObject(ModelHomeContent.class);
 
-                                foodsList.add(modelHomeContent);
-                                homeContentAdapter.notifyDataSetChanged();
-
+                            switch (doc.getType()) {
+                                case ADDED:
+                                    String foodItemId = doc.getDocument().getId();
+                                    ModelHomeContent modelHomeContent = doc.getDocument().toObject(ModelHomeContent.class);
+                                    foodsList.add(modelHomeContent);
+                                    homeContentAdapter.notifyDataSetChanged();
+                                    break;
+                                case MODIFIED:
+                                    Toast.makeText(view.getContext(),"Modified menu",Toast.LENGTH_LONG).show();
+                                    break;
+                                case REMOVED:
+                                    Toast.makeText(view.getContext(),"Removed from menu",Toast.LENGTH_LONG).show();
+                                    break;
                             }
+
                         }
                     }
                 }
