@@ -4,15 +4,24 @@ public class ModelHomeContent {
     public String item_name;
     public String thumb_image;
     public String image_url;
+    public String item_desc;
 
-    public ModelHomeContent(String item_name, String thumb_image, String image_url) {
+    public ModelHomeContent() {
+    }
+
+    public ModelHomeContent(String item_name, String thumb_image, String image_url, String item_desc) {
         this.item_name = item_name;
         this.thumb_image = thumb_image;
         this.image_url = image_url;
+        this.item_desc = item_desc;
     }
 
+    public String getItem_desc() {
+        return item_desc;
+    }
 
-    public ModelHomeContent() {
+    public void setItem_desc(String item_desc) {
+        this.item_desc = item_desc;
     }
 
     public String getImage_url() {

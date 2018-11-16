@@ -60,6 +60,8 @@ public class homeContentAdapter extends RecyclerView.Adapter<homeContentAdapter.
 
         viewHolder.setItemImage(imageUrl,thumbImageUrl);
 
+        String itemDescription = modelHomeContent.getItem_desc();
+        viewHolder.item_desc.setText(itemDescription);
 
 
         //String itemName = homeItemsList.get(position).getName();
@@ -104,7 +106,7 @@ public class homeContentAdapter extends RecyclerView.Adapter<homeContentAdapter.
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView item_image;
-        TextView item_name,item_price,restaurant_name;
+        TextView item_name,item_price,restaurant_name,item_desc;
         //FloatingActionButton viewItemBtn;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -112,7 +114,8 @@ public class homeContentAdapter extends RecyclerView.Adapter<homeContentAdapter.
             item_image = itemView.findViewById(R.id.item_image);
             item_name = itemView.findViewById(R.id.item_name);
             item_price = itemView.findViewById(R.id.item_price);
-            restaurant_name = itemView.findViewById(R.id.restaurant_name);
+            //restaurant_name = itemView.findViewById(R.id.restaurant_name);
+            item_desc = itemView.findViewById(R.id.item_desc);
             //viewItemBtn = itemView.findViewById(R.id.view_item_btn);
         }
 

@@ -40,19 +40,19 @@
                 android:layout_width="wrap_content"
                 android:text="A short Description of this food item"
                 android:textSize="13sp"
-                android:id="@+id/item_desc"/>
+                android:id="@+id/item_desc"
+                android:layout_marginBottom="2dp"/>
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="2dp"
                 android:background="#c0c0c0"/>
             <TextView
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="2dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="100/="
-                android:textColor="@color/colorWhite"
-                android:gravity="center"
-                android:background="@drawable/capsule"/>
+                android:textColor="@color/colorPrimary"
+                />
         </LinearLayout>
     </LinearLayout>
 </android.support.v7.widget.CardView>
