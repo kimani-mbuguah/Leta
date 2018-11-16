@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -105,8 +106,9 @@ public class homeContentAdapter extends RecyclerView.Adapter<homeContentAdapter.
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView item_image;
-        TextView item_name,item_price,restaurant_name,item_desc;
+        public ImageView item_image;
+        public TextView item_name,item_price,restaurant_name,item_desc;
+        public RelativeLayout viewBackground, viewForeground;
         //FloatingActionButton viewItemBtn;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
