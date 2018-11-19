@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -100,10 +101,18 @@ public class homeContentAdapter extends RecyclerView.Adapter<homeContentAdapter.
                 addQuantityButton.setOnClickListener(new ElegantNumberButton.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        String num = addQuantityButton.getNumber();
+                        final String num = addQuantityButton.getNumber();
                     }
                 });
                 btnAddToCart  = (Button) mDialog.findViewById(R.id.btnAddToCart);
+
+                btnAddToCart.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mDialog.dismiss();
+                        Toast.makeText(v.getContext(),itemName + " added to cart",Toast.LENGTH_LONG).show();
+                    }
+                });
                 txtclose.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
