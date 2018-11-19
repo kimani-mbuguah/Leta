@@ -133,23 +133,8 @@ public class homeContentAdapter extends RecyclerView.Adapter<homeContentAdapter.
                         firebaseFirestore.collection(currentUserId).document(itemId).addSnapshotListener(new EventListener<DocumentSnapshot>() {
                             @Override
                             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-                                if (documentSnapshot.exists()){
-                                    favImageView.setImageDrawable(v.getContext().getDrawable(R.mipmap.ic_star));
-                                    firebaseFirestore.collection(currentUserId).document(itemId)
-                                            .delete()
-                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                @Override
-                                                public void onSuccess(Void aVoid) {
-                                                    Toast.makeText(v.getContext(), itemName+ " Removed From My Meals",Toast.LENGTH_LONG).show();
-                                                }
-                                            }).addOnFailureListener(new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception e) {
-                                            Toast.makeText(v.getContext(),e.getMessage(),Toast.LENGTH_LONG).show();
-                                        }
-                                    });
 
-                                }else {
+                                if (!documentSnapshot.exists()){
                                     Map<String, Object>myMealsMap = new HashMap<>();
                                     myMealsMap.put("item_id", itemId);
 
@@ -165,6 +150,25 @@ public class homeContentAdapter extends RecyclerView.Adapter<homeContentAdapter.
                                             Toast.makeText(v.getContext(),e.getMessage(),Toast.LENGTH_LONG).show();
                                         }
                                     });
+
+                                }else {
+                                    favImageView.setImageDrawable(v.getContext().getDrawable(R.mipmap.ic_star));
+                                    Toast.makeText(v.getContext(), itemName+ " Removed From My Meals",Toast.LENGTH_LONG).show();
+//                                    firebaseFirestore.collection(currentUserId).document(itemId)
+//                                            .delete()
+//                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+//                                                @Override
+//                                                public void onSuccess(Void aVoid) {
+//                                                    favImageView.setImageDrawable(v.getContext().getDrawable(R.mipmap.ic_star));
+//                                                    Toast.makeText(v.getContext(), itemName+ " Removed From My Meals",Toast.LENGTH_LONG).show();
+//                                                }
+//                                            })
+//                                            .addOnFailureListener(new OnFailureListener() {
+//                                            @Override
+//                                            public void onFailure(@NonNull Exception e) {
+//                                                Toast.makeText(v.getContext(),e.getMessage(),Toast.LENGTH_LONG).show();
+//                                            }
+//                                    });
                                 }
                             }
                         });
