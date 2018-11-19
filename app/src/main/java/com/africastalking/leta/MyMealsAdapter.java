@@ -56,13 +56,13 @@ public class MyMealsAdapter extends RecyclerView.Adapter<MyMealsAdapter.ViewHold
         MyMeals myMeals = MyMealsList.get(position);
         final String itemName = myMeals.getItem_name();
         final String itemDesc = myMeals.getItem_desc();
-        final String  itemPrice = myMeals.getItem_price();
+        final Long itemPrice = myMeals.getItem_price();
         final String itemId = myMeals.getItem_id();
 
         //set values to layout
         viewHolder.itemName.setText(itemName);
         viewHolder.itemDesc.setText(itemDesc);
-        viewHolder.itemPrice.setText(itemPrice);
+        viewHolder.itemPrice.setText(itemPrice.toString());
 
     }
 

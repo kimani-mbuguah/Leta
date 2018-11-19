@@ -141,6 +141,7 @@ public class homeContentAdapter extends RecyclerView.Adapter<homeContentAdapter.
                                     myMealsMap.put("item_desc",itemDescription);
                                     myMealsMap.put("item_price",200);
                                     myMealsMap.put("restaurant_name", "Kibandaski");
+                                    myMealsMap.put("timestamp", FieldValue.serverTimestamp());
 
                                     firebaseFirestore.collection(currentUserId).document(itemId).set(myMealsMap).addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
