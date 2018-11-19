@@ -82,7 +82,7 @@ public class homeContentAdapter extends RecyclerView.Adapter<homeContentAdapter.
             @Override
             public void onClick(View v) {
                 mDialog = new Dialog(v.getContext());
-                ImageView singleItemImage;
+                final ImageView singleItemImage,favImageView;
                 TextView txtclose,singleItemName,singleItemDesc;
                 Button btnAddToCart;
                 mDialog.setContentView(R.layout.item_popup);
@@ -92,6 +92,7 @@ public class homeContentAdapter extends RecyclerView.Adapter<homeContentAdapter.
                 singleItemImage = mDialog.findViewById(R.id.single_item_image);
                 singleItemName = mDialog.findViewById(R.id.single_item_name);
                 singleItemDesc = mDialog.findViewById(R.id.single_item_desc);
+                favImageView = mDialog.findViewById(R.id.fav_image_btn);
 
                 RequestOptions requestOptions = new RequestOptions();
                 requestOptions.placeholder(R.drawable.asdf);
@@ -102,6 +103,14 @@ public class homeContentAdapter extends RecyclerView.Adapter<homeContentAdapter.
 
                 singleItemName.setText(itemName);
                 singleItemDesc.setText(itemDescription);
+
+                favImageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        favImageView.setImageDrawable(v.getContext().getDrawable(R.mipmap.ic_fav));
+                        Toast.makeText(v.getContext(), itemName+ " Added To My Meals",Toast.LENGTH_LONG).show();
+                    }
+                });
                 final ElegantNumberButton addQuantityButton = mDialog.findViewById(R.id.addQuantityBtn);
 
                 addQuantityButton.setOnClickListener(new ElegantNumberButton.OnClickListener() {
