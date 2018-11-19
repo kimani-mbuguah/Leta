@@ -11,6 +11,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,6 +68,7 @@ public class HomeFragment extends Fragment {
         homeRV.setAdapter(homeContentAdapter);
         homeRV.setHasFixedSize(true);
 
+
         if(firebaseAuth.getCurrentUser() != null) {
             firebaseFirestore = FirebaseFirestore.getInstance();
 
@@ -120,4 +122,5 @@ public class HomeFragment extends Fragment {
 
         return view;
     }
+
 }

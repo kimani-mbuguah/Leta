@@ -33,6 +33,9 @@ public class homeContentAdapter extends RecyclerView.Adapter<homeContentAdapter.
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore firebaseFirestore;
 
+
+
+
     public homeContentAdapter(List<ModelHomeContent> homeItemsList){
         this.homeItemsList = homeItemsList;
     }
@@ -46,6 +49,8 @@ public class homeContentAdapter extends RecyclerView.Adapter<homeContentAdapter.
         ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
     }
+
+
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
@@ -65,39 +70,40 @@ public class homeContentAdapter extends RecyclerView.Adapter<homeContentAdapter.
         viewHolder.item_desc.setText(itemDescription);
 
 
+
         //String itemName = homeItemsList.get(position).getName();
 
 
         //holder.setDescText(desc_data);
 
-//        viewHolder.viewItemBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                mDialog = new Dialog(v.getContext());
-//                TextView txtclose;
-//                Button btnAddToCart;
-//                mDialog.setContentView(R.layout.item_popup);
-//                txtclose =(TextView) mDialog.findViewById(R.id.txtclose);
-//                txtclose.setText("X");
-//                final ElegantNumberButton addQuantityButton = mDialog.findViewById(R.id.addQuantityBtn);
-//
-//                addQuantityButton.setOnClickListener(new ElegantNumberButton.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//                        String num = addQuantityButton.getNumber();
-//                    }
-//                });
-//                btnAddToCart  = (Button) mDialog.findViewById(R.id.btnAddToCart);
-//                txtclose.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        mDialog.dismiss();
-//                    }
-//                });
-//                mDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-//                mDialog.show();
-//            }
-//        });
+        viewHolder.viewItemBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mDialog = new Dialog(v.getContext());
+                TextView txtclose;
+                Button btnAddToCart;
+                mDialog.setContentView(R.layout.item_popup);
+                txtclose =(TextView) mDialog.findViewById(R.id.txtclose);
+                txtclose.setText("X");
+                final ElegantNumberButton addQuantityButton = mDialog.findViewById(R.id.addQuantityBtn);
+
+                addQuantityButton.setOnClickListener(new ElegantNumberButton.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String num = addQuantityButton.getNumber();
+                    }
+                });
+                btnAddToCart  = (Button) mDialog.findViewById(R.id.btnAddToCart);
+                txtclose.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mDialog.dismiss();
+                    }
+                });
+                mDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                mDialog.show();
+            }
+        });
     }
 
     @Override
@@ -108,8 +114,7 @@ public class homeContentAdapter extends RecyclerView.Adapter<homeContentAdapter.
     public class ViewHolder extends RecyclerView.ViewHolder {
         public ImageView item_image;
         public TextView item_name,item_price,restaurant_name,item_desc;
-        public RelativeLayout viewBackground, viewForeground;
-        //FloatingActionButton viewItemBtn;
+        public Button viewItemBtn;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -118,7 +123,8 @@ public class homeContentAdapter extends RecyclerView.Adapter<homeContentAdapter.
             item_price = itemView.findViewById(R.id.item_price);
             //restaurant_name = itemView.findViewById(R.id.restaurant_name);
             item_desc = itemView.findViewById(R.id.item_desc);
-            //viewItemBtn = itemView.findViewById(R.id.view_item_btn);
+            viewItemBtn = itemView.findViewById(R.id.moreBtn);
+
         }
 
         public void setItemImage(String imageUrl, String thumbImageUrl) {
