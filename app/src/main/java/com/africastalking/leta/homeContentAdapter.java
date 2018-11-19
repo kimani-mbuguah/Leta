@@ -193,9 +193,10 @@ public class homeContentAdapter extends RecyclerView.Adapter<homeContentAdapter.
                         imagesMap.put("restaurant_name", "Kibanda");
                         imagesMap.put("quantity", 5);
                         imagesMap.put("total_price", 300);
+                        imagesMap.put("item_id", itemId);
                         imagesMap.put("timestamp", FieldValue.serverTimestamp());
 
-                        firebaseFirestore.collection("Cart").add(imagesMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                        firebaseFirestore.collection(currentUserId+"_Cart").add(imagesMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                             @Override
                             public void onComplete(@NonNull Task<DocumentReference> task) {
 
