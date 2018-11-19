@@ -63,7 +63,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="color" value="e7202a" />
+                                                <entry key="color" value="ff2a39" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -74,7 +74,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="url" value="jar:file:/snap/android-studio/69/android-studio/plugins/android/lib/android.jar!/images/material_design_icons/maps/ic_restaurant_black_24dp.xml" />
+                                                <entry key="url" value="jar:file:/snap/android-studio/69/android-studio/plugins/android/lib/android.jar!/images/material_design_icons/toggle/ic_star_black_24dp.xml" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -84,7 +84,8 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="outputName" value="ic_app_icon" />
+                                      <entry key="iconShape" value="NONE" />
+                                      <entry key="outputName" value="ic_fav" />
                                     </map>
                                   </option>
                                 </PersistentState>

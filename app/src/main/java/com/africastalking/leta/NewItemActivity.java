@@ -192,6 +192,9 @@ public class NewItemActivity extends AppCompatActivity {
                                         imagesMap.put("image_thumb", thumbDownloaduri);
                                         imagesMap.put("item_name", item_name);
                                         imagesMap.put("item_desc", desc);
+                                        imagesMap.put("item_id", randomName);
+                                        imagesMap.put("restaurant_name","Kibandaski");
+                                        imagesMap.put("item_price", 250);
                                         imagesMap.put("timestamp", FieldValue.serverTimestamp());
 
                                         firebaseFirestore.collection("Menu").add(imagesMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
