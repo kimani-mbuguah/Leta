@@ -58,33 +58,43 @@ public class homeContentAdapter extends RecyclerView.Adapter<homeContentAdapter.
         ModelHomeContent modelHomeContent = homeItemsList.get(position);
         viewHolder.setIsRecyclable(false);
 
-        String itemName = modelHomeContent.getItem_name();
+        final String itemName = modelHomeContent.getItem_name();
         viewHolder.item_name.setText(itemName);
 
-        String thumbImageUrl = modelHomeContent.getThumb_image();
-        String imageUrl = modelHomeContent.getImage_url();
+        final String thumbImageUrl = modelHomeContent.getThumb_image();
+        final String imageUrl = modelHomeContent.getImage_url();
 
         viewHolder.setItemImage(imageUrl,thumbImageUrl);
 
-        String itemDescription = modelHomeContent.getItem_desc();
+        final String itemDescription = modelHomeContent.getItem_desc();
         viewHolder.item_desc.setText(itemDescription);
 
 
-
-        //String itemName = homeItemsList.get(position).getName();
-
-
-        //holder.setDescText(desc_data);
 
         viewHolder.viewItemBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mDialog = new Dialog(v.getContext());
-                TextView txtclose;
+                ImageView singleItemImage;
+                TextView txtclose,singleItemName,singleItemDesc;
                 Button btnAddToCart;
                 mDialog.setContentView(R.layout.item_popup);
                 txtclose =(TextView) mDialog.findViewById(R.id.txtclose);
                 txtclose.setText("X");
+
+                singleItemImage = mDialog.findViewById(R.id.single_item_image);
+                singleItemName = mDialog.findViewById(R.id.single_item_name);
+                singleItemDesc = mDialog.findViewById(R.id.single_item_desc);
+
+                RequestOptions requestOptions = new RequestOptions();
+                requestOptions.placeholder(R.drawable.asdf);
+
+                Glide.with(context).applyDefaultRequestOptions(requestOptions).load(imageUrl).thumbnail(
+                        Glide.with(context).load(thumbImageUrl)
+                ).into(singleItemImage);
+
+                singleItemName.setText(itemName);
+                singleItemDesc.setText(itemDescription);
                 final ElegantNumberButton addQuantityButton = mDialog.findViewById(R.id.addQuantityBtn);
 
                 addQuantityButton.setOnClickListener(new ElegantNumberButton.OnClickListener() {
