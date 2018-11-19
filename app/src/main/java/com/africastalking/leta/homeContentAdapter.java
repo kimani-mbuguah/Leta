@@ -20,16 +20,24 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.annotation.Nullable;
 
 public class homeContentAdapter extends RecyclerView.Adapter<homeContentAdapter.ViewHolder> {
 
@@ -64,6 +72,7 @@ public class homeContentAdapter extends RecyclerView.Adapter<homeContentAdapter.
 
         ModelHomeContent modelHomeContent = homeItemsList.get(position);
         viewHolder.setIsRecyclable(false);
+        final String currentUserId = firebaseAuth.getCurrentUser().getUid();
 
         final String itemName = modelHomeContent.getItem_name();
         viewHolder.item_name.setText(itemName);
@@ -76,11 +85,13 @@ public class homeContentAdapter extends RecyclerView.Adapter<homeContentAdapter.
         final String itemDescription = modelHomeContent.getItem_desc();
         viewHolder.item_desc.setText(itemDescription);
 
+        final String itemId = modelHomeContent.getItem_id();
+
 
 
         viewHolder.viewItemBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(final View v) {
                 mDialog = new Dialog(v.getContext());
                 final ImageView singleItemImage,favImageView;
                 TextView txtclose,singleItemName,singleItemDesc;
@@ -104,13 +115,62 @@ public class homeContentAdapter extends RecyclerView.Adapter<homeContentAdapter.
                 singleItemName.setText(itemName);
                 singleItemDesc.setText(itemDescription);
 
-                favImageView.setOnClickListener(new View.OnClickListener() {
+                //set favourite button color
+                firebaseFirestore.collection(currentUserId).document(itemId).addSnapshotListener(new EventListener<DocumentSnapshot>() {
                     @Override
-                    public void onClick(View v) {
-                        favImageView.setImageDrawable(v.getContext().getDrawable(R.mipmap.ic_fav));
-                        Toast.makeText(v.getContext(), itemName+ " Added To My Meals",Toast.LENGTH_LONG).show();
+                    public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+                        if (documentSnapshot.exists()){
+                            favImageView.setImageDrawable(v.getContext().getDrawable(R.mipmap.ic_fav));
+                        }else {
+                            favImageView.setImageDrawable(v.getContext().getDrawable(R.mipmap.ic_star));
+                        }
                     }
                 });
+
+                favImageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(final View v) {
+                        firebaseFirestore.collection(currentUserId).document(itemId).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                            @Override
+                            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+                                if (documentSnapshot.exists()){
+                                    favImageView.setImageDrawable(v.getContext().getDrawable(R.mipmap.ic_star));
+                                    firebaseFirestore.collection(currentUserId).document(itemId)
+                                            .delete()
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    Toast.makeText(v.getContext(), itemName+ " Removed From My Meals",Toast.LENGTH_LONG).show();
+                                                }
+                                            }).addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Toast.makeText(v.getContext(),e.getMessage(),Toast.LENGTH_LONG).show();
+                                        }
+                                    });
+
+                                }else {
+                                    Map<String, Object>myMealsMap = new HashMap<>();
+                                    myMealsMap.put("item_id", itemId);
+
+                                    firebaseFirestore.collection(currentUserId).document(itemId).set(myMealsMap).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            favImageView.setImageDrawable(v.getContext().getDrawable(R.mipmap.ic_fav));
+                                            Toast.makeText(v.getContext(), itemName+ " Added To My Meals",Toast.LENGTH_LONG).show();
+                                        }
+                                    }).addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Toast.makeText(v.getContext(),e.getMessage(),Toast.LENGTH_LONG).show();
+                                        }
+                                    });
+                                }
+                            }
+                        });
+                    }
+                });
+
                 final ElegantNumberButton addQuantityButton = mDialog.findViewById(R.id.addQuantityBtn);
 
                 addQuantityButton.setOnClickListener(new ElegantNumberButton.OnClickListener() {
