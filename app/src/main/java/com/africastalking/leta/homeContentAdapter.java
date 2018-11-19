@@ -137,6 +137,10 @@ public class homeContentAdapter extends RecyclerView.Adapter<homeContentAdapter.
                                 if (!documentSnapshot.exists()){
                                     Map<String, Object>myMealsMap = new HashMap<>();
                                     myMealsMap.put("item_id", itemId);
+                                    myMealsMap.put("item_name",itemName);
+                                    myMealsMap.put("item_desc",itemDescription);
+                                    myMealsMap.put("item_price",200);
+                                    myMealsMap.put("restaurant_name", "Kibandaski");
 
                                     firebaseFirestore.collection(currentUserId).document(itemId).set(myMealsMap).addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
