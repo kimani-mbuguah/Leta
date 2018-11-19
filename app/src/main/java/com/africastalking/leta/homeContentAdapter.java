@@ -19,11 +19,17 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class homeContentAdapter extends RecyclerView.Adapter<homeContentAdapter.ViewHolder> {
 
@@ -108,11 +114,35 @@ public class homeContentAdapter extends RecyclerView.Adapter<homeContentAdapter.
 
                 btnAddToCart.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(View v) {
-                        mDialog.dismiss();
-                        Toast.makeText(v.getContext(),itemName + " added to cart",Toast.LENGTH_LONG).show();
+                    public void onClick(final View v) {
+                        Map<String, Object> imagesMap = new HashMap<>();
+                        imagesMap.put("item_name",itemName);
+                        imagesMap.put("restaurant_name", "Kibanda");
+                        imagesMap.put("quantity", 5);
+                        imagesMap.put("total_price", 300);
+                        imagesMap.put("timestamp", FieldValue.serverTimestamp());
+
+                        firebaseFirestore.collection("Cart").add(imagesMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentReference> task) {
+
+                                if(task.isSuccessful()){
+                                    mDialog.dismiss();
+                                    Toast.makeText(v.getContext(), itemName + " Added To Cart", Toast.LENGTH_LONG).show();
+
+                                } else {
+                                    mDialog.dismiss();
+                                    Toast.makeText(v.getContext(), task.getException().getMessage(),
+                                            Toast.LENGTH_SHORT).show();
+                                }
+
+
+                            }
+                        });
+
                     }
                 });
+
                 txtclose.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
