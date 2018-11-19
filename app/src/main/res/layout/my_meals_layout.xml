@@ -17,22 +17,22 @@
             android:padding="10dp">
 
             <TextView
-                android:layout_marginTop="30dp"
-                android:id="@+id/item_name"
+                android:id="@+id/my_meals_item_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
                 android:text="Food Item"
                 android:textSize="18sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
 
             <TextView
-                android:layout_height="wrap_content"
+                android:id="@+id/my_meals_item_desc"
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
                 android:text="A description of the food item. Dummy words"
-                android:textSize="13sp"
-                android:id="@+id/item_desc"
-                android:layout_marginBottom="2dp"/>
+                android:textSize="13sp" />
         </LinearLayout>
         <LinearLayout
             android:id="@+id/item_image"
@@ -41,32 +41,38 @@
             android:layout_weight="5"
             android:orientation="vertical"
             android:padding="10dp">
-                <TextView
-                    android:id="@+id/txtclose"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:textColor="@color/colorWhite"
-                    android:text="X"
-                    android:textStyle="bold"
-                    android:layout_gravity="end"
-                    android:gravity="center"
-                    android:background="@drawable/circlebackground"/>
+
             <TextView
+                android:id="@+id/my_meals_txtclose"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="end"
+                android:background="@drawable/circlebackground"
+                android:gravity="center"
+                android:text="X"
+                android:textColor="@color/colorWhite"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/my_meals_item_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="100/="
                 android:textColor="@color/colorPrimary"
                 android:textStyle="bold" />
+
             <TextView
+                android:id="@+id/my_meals_restaurant_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Kibandaski"
                 android:textStyle="bold" />
+
             <Button
-                android:id="@+id/moreBtn"
-                android:layout_marginTop="5dp"
+                android:id="@+id/my_meals_moreBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="15dp"
+                android:layout_marginTop="5dp"
                 android:layout_weight="5"
                 android:background="@drawable/button_red"
                 android:text="details"
