@@ -26,6 +26,7 @@ public class MyMealsAdapter extends RecyclerView.Adapter<MyMealsAdapter.ViewHold
     public MyMealsAdapter(List<MyMeals> MyMealsList){
         this.MyMealsList = MyMealsList;
     }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
