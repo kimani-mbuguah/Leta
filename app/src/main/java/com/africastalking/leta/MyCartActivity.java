@@ -39,6 +39,7 @@ public class MyCartActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
+        final String currentUserId = firebaseAuth.getCurrentUser().getUid();
 
         cartItems = new ArrayList<>();
         cartItemsRecyclerView = findViewById(R.id.cart_rv);
@@ -48,15 +49,13 @@ public class MyCartActivity extends AppCompatActivity {
         cartItemsRecyclerView.setHasFixedSize(true);
 
         if(firebaseAuth.getCurrentUser() != null) {
-            Query firstQuery = firebaseFirestore.collection("Menu").orderBy("timestamp", Query.Direction.DESCENDING);
+            Query firstQuery = firebaseFirestore.collection(currentUserId+"_Cart").orderBy("timestamp", Query.Direction.DESCENDING);
             firstQuery.addSnapshotListener(this, new EventListener<QuerySnapshot>() {
                 @Override
                 public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
 
                     if (e != null) {
-                       // Toast.makeText(this,"Listen Failed", Toast.LENGTH_LONG).show();
-                        //Toast.makeText(this,"Listen failed",Toast.LENGTH_LONG).show();
-                        //Log.w(TAG, "Listen failed.", e);
+                       Toast.makeText(MyCartActivity.this,"Listen Failed", Toast.LENGTH_LONG).show();
                         return;
                     }
 
@@ -74,10 +73,10 @@ public class MyCartActivity extends AppCompatActivity {
                                     cartItemsAdapter.notifyDataSetChanged();
                                     break;
                                 case MODIFIED:
-                                   // Toast.makeText(this,"Modified menu",Toast.LENGTH_LONG).show();
+                                    Toast.makeText(MyCartActivity.this,"Modified menu",Toast.LENGTH_LONG).show();
                                     break;
                                 case REMOVED:
-                                    //Toast.makeText(view.getContext(),"Removed from menu",Toast.LENGTH_LONG).show();
+                                    Toast.makeText(MyCartActivity.this,"Removed from menu",Toast.LENGTH_LONG).show();
                                     break;
                             }
 

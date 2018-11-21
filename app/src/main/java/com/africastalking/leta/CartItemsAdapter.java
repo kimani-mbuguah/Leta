@@ -52,8 +52,8 @@ public class CartItemsAdapter extends RecyclerView.Adapter<CartItemsAdapter.View
     @Override
     public void onBindViewHolder(@NonNull CartItemsAdapter.ViewHolder viewHolder, int position) {
         CartItem cartItem = CartItemsList.get(position);
-        viewHolder.itemName.setText(cartItem.getItemName());
-        viewHolder.itemPrice.setText("KSH 200");
+        viewHolder.itemName.setText(cartItem.getItem_name());
+       // viewHolder.itemPrice.setText("KSH 200");
         //viewHolder.itemQuatity.setText("dummy");
     }
 
