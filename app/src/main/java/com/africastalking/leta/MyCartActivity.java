@@ -20,14 +20,14 @@ public class MyCartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_cart);
 
-        btnContinueToCheckout = findViewById(R.id.btnContinueToCheckout);
-        btnContinueToCheckout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent choosePaymentMethod = new Intent(MyCartActivity.this, PaymentOptionsActivity.class);
-                startActivity(choosePaymentMethod);
-            }
-        });
+//        btnContinueToCheckout = findViewById(R.id.btnContinueToCheckout);
+//        btnContinueToCheckout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent choosePaymentMethod = new Intent(MyCartActivity.this, PaymentOptionsActivity.class);
+//                startActivity(choosePaymentMethod);
+//            }
+//        });
 
         cartItems = new ArrayList<>();
         cartItems.add(new CartItem("Ugali Matumbo", "Kibanda1", 300,3));
