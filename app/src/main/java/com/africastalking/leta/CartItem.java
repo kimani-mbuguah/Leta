@@ -11,6 +11,8 @@ public class CartItem {
         this.itemQuantity = itemQuantity;
     }
 
+    public CartItem() {
+    }
 
     public String getItemName() {
         return itemName;

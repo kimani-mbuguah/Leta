@@ -8,23 +8,34 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class CartItemsAdapter extends RecyclerView.Adapter<CartItemsAdapter.ViewHolder> {
-    private Context mContext;
-    private ArrayList<CartItem> mList;
-    CartItemsAdapter(Context context, ArrayList<CartItem> list){
-        mContext = context;
-        mList = list;
+    public List<CartItem> CartItemsList;
+    public Context context;
+
+    private FirebaseAuth firebaseAuth;
+    private FirebaseFirestore firebaseFirestore;
+
+
+    public CartItemsAdapter(List<CartItem> CartItemsList){
+        this.CartItemsList = CartItemsList;
     }
 
     @NonNull
     @Override
     public CartItemsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        LayoutInflater layoutInflater = LayoutInflater.from(mContext);
-        View view = layoutInflater.inflate(R.layout.single_cart_item,viewGroup,false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.single_cart_item,viewGroup,false);
+        context = viewGroup.getContext();
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
         ViewHolder viewHolder = new ViewHolder(view);
-        return  viewHolder;
+        return viewHolder;
+
     }
 
 
@@ -40,7 +51,7 @@ public class CartItemsAdapter extends RecyclerView.Adapter<CartItemsAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull CartItemsAdapter.ViewHolder viewHolder, int position) {
-        CartItem cartItem = mList.get(position);
+        CartItem cartItem = CartItemsList.get(position);
         viewHolder.itemName.setText(cartItem.getItemName());
         viewHolder.itemPrice.setText("KSH 200");
         //viewHolder.itemQuatity.setText("dummy");
@@ -48,6 +59,6 @@ public class CartItemsAdapter extends RecyclerView.Adapter<CartItemsAdapter.View
 
     @Override
     public int getItemCount() {
-        return mList.size();
+        return CartItemsList.size();
     }
 }
