@@ -33,9 +33,8 @@ public class CartItemsAdapter extends RecyclerView.Adapter<CartItemsAdapter.View
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             itemName = itemView.findViewById(R.id.cart_item_name);
-            restautantName = itemView.findViewById(R.id.cart_restaurant_name);
             itemPrice = itemView.findViewById(R.id.cart_item_price);
-            itemQuatity = itemView.findViewById(R.id.cart_item_quantity);
+            //itemQuatity = itemView.findViewById(R.id.cart_item_quantity);
         }
     }
 
@@ -43,9 +42,8 @@ public class CartItemsAdapter extends RecyclerView.Adapter<CartItemsAdapter.View
     public void onBindViewHolder(@NonNull CartItemsAdapter.ViewHolder viewHolder, int position) {
         CartItem cartItem = mList.get(position);
         viewHolder.itemName.setText(cartItem.getItemName());
-        viewHolder.itemPrice.setText("Dummy Text");
-        viewHolder.itemQuatity.setText("dummy");
-        viewHolder.restautantName.setText(cartItem.getRestaurantName());
+        viewHolder.itemPrice.setText("KSH 200");
+        //viewHolder.itemQuatity.setText("dummy");
     }
 
     @Override

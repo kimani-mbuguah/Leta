@@ -1,90 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_margin="10dp">
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+android:layout_margin="10dp">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="9">
-
+        android:layout_height="120dp"
+        android:orientation="vertical">
         <LinearLayout
-            android:background="@color/darkOrange"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:layout_weight="3"
-            android:layout_width="0dp"
-            android:layout_height="100dp">
-
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:weightSum="10">
             <TextView
                 android:id="@+id/cart_item_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Ugali Matumbo"
+                android:text="Food Item"
                 android:textSize="18sp"
-                android:textColor="@color/colorWhite"/>
-            <TextView
-                android:id="@+id/cart_restaurant_name"
+                android:layout_weight="8"
+                android:textStyle="bold"
+                android:padding="10dp"/>
+            <ImageView
+                android:layout_weight="2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Kibandaski"
-                android:textSize="18sp"
-                android:textColor="@color/colorWhite"/>
-        </LinearLayout>
-        <LinearLayout
-            android:background="@color/darkOrange"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:layout_weight="3"
-            android:layout_width="0dp"
-            android:layout_height="100dp">
+                android:src="@drawable/ic_trash" />
 
-            <TextView
-                android:id="@+id/cart_item_quantity"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="1 x 300"
-                android:textSize="18sp"
-                android:textColor="@color/colorWhite"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:weightSum="10"
+            android:orientation="horizontal"
+           >
+
+
             <TextView
                 android:id="@+id/cart_item_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="KSH 300"
-                android:textSize="18sp"
-                android:textColor="@color/colorWhite"/>
-        </LinearLayout>
-        <LinearLayout
-            android:background="@color/darkOrange"
-            android:orientation="vertical"
-            android:layout_weight="3"
-            android:layout_width="0dp"
-            android:layout_height="100dp">
-            <TextView
-                android:id="@+id/cart_remove_item"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:textColor="@color/colorWhite"
-                android:text="X"
+                android:layout_weight="9"
+                android:text="100/="
+                android:textColor="@color/colorPrimary"
                 android:textStyle="bold"
-                android:layout_gravity="end"
-                android:gravity="center"
-                android:background="@drawable/circlebackground"/>
+                android:textSize="20sp"
+                android:padding="10dp"/>
+
             <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
-                android:id="@+id/addQuantityBtn"
+                android:id="@+id/cart_item_quantity"
                 android:layout_width="wrap_content"
-                app:backGroundColor="@color/darkOrange"
-                app:textSize="8sp"
-                app:initialNumber="1"
-                app:finalNumber="20"
-                android:layout_gravity="center"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"/>
-
+                android:layout_gravity="end"
+                android:layout_marginBottom="5dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                app:backGroundColor="@color/forestgreen"
+                app:finalNumber="20"
+                app:initialNumber="1"
+                app:textSize="8sp" />
         </LinearLayout>
-
     </LinearLayout>
 
-</android.support.constraint.ConstraintLayout>
+
+
+
+
+
+</android.support.v7.widget.CardView>
