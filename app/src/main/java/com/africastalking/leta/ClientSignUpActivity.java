@@ -15,10 +15,18 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class ClientSignUpActivity extends AppCompatActivity {
     private EditText clientName, clientEmail, clientPhone, clientPass, clientPassConfirm;
@@ -26,6 +34,7 @@ public class ClientSignUpActivity extends AppCompatActivity {
     private Button msignUpBtn;
     private View mLoginFormView;
     private View mProgressView;
+    private FirebaseFirestore firebaseFirestore;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +43,9 @@ public class ClientSignUpActivity extends AppCompatActivity {
         //initialize firebaseAuth instance
 
         mAuth = FirebaseAuth.getInstance();
+
+        //initialize firebaseFirestore
+        firebaseFirestore = FirebaseFirestore.getInstance();
         //initialize fields
 
         clientName = findViewById(R.id.client_reg_name);
@@ -140,19 +152,32 @@ public class ClientSignUpActivity extends AppCompatActivity {
         }
     }
 
-    private void createUser(String name, String email, String phone, String password) {
+    private void createUser(final String name, final String email, final String phone, String password) {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
-                            //signed in successfully
-                            showProgress(false);
-                            Toast.makeText(ClientSignUpActivity.this,"Account created successfully",Toast.LENGTH_LONG).show();
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            Intent clientMainActivityIntent = new Intent(ClientSignUpActivity.this, ClientMainActivity.class);
-                            clientMainActivityIntent.putExtra("client_id", user);
-                            startActivity(clientMainActivityIntent);
+                            //user created successfully
+                            Map<String, Object> detailsMap = new HashMap<>();
+                            detailsMap.put("name", name);
+                            detailsMap.put("email", email);
+                            detailsMap.put("phone", phone);
+                            detailsMap.put("user_id", mAuth.getCurrentUser().getUid());
+                            detailsMap.put("timestamp", FieldValue.serverTimestamp());
+
+                            //insert details to database
+                            firebaseFirestore.collection("Users").add(detailsMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentReference> task) {
+                                    showProgress(false);
+                                    Toast.makeText(ClientSignUpActivity.this,"Account created successfully",Toast.LENGTH_LONG).show();
+                                    FirebaseUser user = mAuth.getCurrentUser();
+                                    Intent clientMainActivityIntent = new Intent(ClientSignUpActivity.this, ClientMainActivity.class);
+                                    clientMainActivityIntent.putExtra("client_id", user);
+                                    startActivity(clientMainActivityIntent);
+                                }
+                            });
                         }else{
                             showProgress(false);
                             Toast.makeText(ClientSignUpActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();

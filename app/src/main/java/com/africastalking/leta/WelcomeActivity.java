@@ -12,7 +12,6 @@ import android.widget.LinearLayout;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class WelcomeActivity extends AppCompatActivity {
-    //declare uptodown and downtoup layouts, get started button
     LinearLayout l1,l2;
     Button getStartedBtn;
     Animation uptodown,downtoup;
