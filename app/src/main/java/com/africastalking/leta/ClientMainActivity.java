@@ -96,8 +96,6 @@ public class ClientMainActivity extends AppCompatActivity {
 
             default:
                 return false;
-
-
         }
 
     }

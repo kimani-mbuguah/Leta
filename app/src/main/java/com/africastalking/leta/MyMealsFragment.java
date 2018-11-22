@@ -66,7 +66,7 @@ public class MyMealsFragment extends Fragment {
         if (firebaseAuth.getCurrentUser() != null){
             firebaseFirestore = FirebaseFirestore.getInstance();
 
-            Query firstQuery = firebaseFirestore.collection(currentUserId).orderBy("timestamp", Query.Direction.DESCENDING);
+            Query firstQuery = firebaseFirestore.collection(currentUserId+"_favs").orderBy("timestamp", Query.Direction.DESCENDING);
             firstQuery.addSnapshotListener(getActivity(), new EventListener<QuerySnapshot>() {
                 @Override
                 public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {

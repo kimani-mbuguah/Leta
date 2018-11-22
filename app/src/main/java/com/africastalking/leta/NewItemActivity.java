@@ -51,7 +51,7 @@ import id.zelory.compressor.Compressor;
 public class NewItemActivity extends AppCompatActivity {
     private ImageView newItemImage;
     private EditText mItemName;
-    private EditText mItemDesc;
+    private EditText mItemDesc,mItemPrice,mTotalItems;
     private Button addNewItemBtn;
     private android.support.v7.widget.Toolbar addNewitemToolbar;
     private Uri itemImageUri = null;
@@ -88,6 +88,8 @@ public class NewItemActivity extends AppCompatActivity {
         mItemDesc = findViewById(R.id.new_item_desc);
         addNewItemBtn = findViewById(R.id.btnAddNewItem);
         newItemProgress = findViewById(R.id.new_item_progress);
+        mItemPrice = findViewById(R.id.new_item_price);
+        mTotalItems = findViewById(R.id.new_total_items);
         newItemProgress.getProgressDrawable().setColorFilter(
                 Color.GREEN, android.graphics.PorterDuff.Mode.SRC_IN);
 
@@ -110,7 +112,10 @@ public class NewItemActivity extends AppCompatActivity {
             public void onClick(View v) {
                 final String desc = mItemDesc.getText().toString();
                 final String item_name = mItemName.getText().toString();
-
+                final String string_item_price = mItemPrice.getText().toString();
+                final String string_total_items = mTotalItems.getText().toString();
+                final double item_price =  Double.parseDouble(string_item_price);
+                final double total_items =  Double.parseDouble(string_total_items);
                 if(!TextUtils.isEmpty(desc) && !TextUtils.isEmpty(item_name) && itemImageUri != null){
                     newItemProgress.setVisibility(View.VISIBLE);
                     final String randomName = UUID.randomUUID().toString();
@@ -193,6 +198,8 @@ public class NewItemActivity extends AppCompatActivity {
                                         imagesMap.put("item_name", item_name);
                                         imagesMap.put("item_desc", desc);
                                         imagesMap.put("item_id", randomName);
+                                        imagesMap.put("item_price", item_price);
+                                        imagesMap.put("total_items",total_items);
                                         imagesMap.put("restaurant_name","Kibandaski");
                                         imagesMap.put("item_price", 250);
                                         imagesMap.put("timestamp", FieldValue.serverTimestamp());

@@ -74,6 +74,8 @@ public class homeContentAdapter extends RecyclerView.Adapter<homeContentAdapter.
         viewHolder.setIsRecyclable(false);
         final String currentUserId = firebaseAuth.getCurrentUser().getUid();
 
+        final String[] totalItems = new String[1];
+
         final String itemName = modelHomeContent.getItem_name();
         viewHolder.item_name.setText(itemName);
 
@@ -86,6 +88,12 @@ public class homeContentAdapter extends RecyclerView.Adapter<homeContentAdapter.
         viewHolder.item_desc.setText(itemDescription);
 
         final String itemId = modelHomeContent.getItem_id();
+
+       // final String string_item_price = modelHomeContent.getItem_price();
+        //final double item_price = Double.parseDouble(string_item_price);
+        final Long item_price = modelHomeContent.getItem_price();
+
+        final Long total_items = modelHomeContent.getTotal_items();
 
 
 
@@ -116,13 +124,13 @@ public class homeContentAdapter extends RecyclerView.Adapter<homeContentAdapter.
                 singleItemDesc.setText(itemDescription);
 
                 //set favourite button color
-                firebaseFirestore.collection(currentUserId).document(itemId).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                firebaseFirestore.collection(currentUserId+"_favs").document(itemId).addSnapshotListener(new EventListener<DocumentSnapshot>() {
                     @Override
                     public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
                         if (documentSnapshot.exists()){
                             favImageView.setImageDrawable(v.getContext().getDrawable(R.mipmap.ic_fav));
                         }else {
-                            favImageView.setImageDrawable(v.getContext().getDrawable(R.mipmap.ic_star));
+                           // favImageView.setImageDrawable(v.getContext().getDrawable(R.mipmap.ic_star));
                         }
                     }
                 });
@@ -130,7 +138,7 @@ public class homeContentAdapter extends RecyclerView.Adapter<homeContentAdapter.
                 favImageView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(final View v) {
-                        firebaseFirestore.collection(currentUserId).document(itemId).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                        firebaseFirestore.collection(currentUserId+"_favs").document(itemId).addSnapshotListener(new EventListener<DocumentSnapshot>() {
                             @Override
                             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
 
@@ -139,11 +147,12 @@ public class homeContentAdapter extends RecyclerView.Adapter<homeContentAdapter.
                                     myMealsMap.put("item_id", itemId);
                                     myMealsMap.put("item_name",itemName);
                                     myMealsMap.put("item_desc",itemDescription);
-                                    myMealsMap.put("item_price",200);
+                                    myMealsMap.put("item_price",item_price);
+                                    myMealsMap.put("item_id",itemId);
                                     myMealsMap.put("restaurant_name", "Kibandaski");
                                     myMealsMap.put("timestamp", FieldValue.serverTimestamp());
 
-                                    firebaseFirestore.collection(currentUserId).document(itemId).set(myMealsMap).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    firebaseFirestore.collection(currentUserId+"_favs").document(itemId).set(myMealsMap).addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
                                             favImageView.setImageDrawable(v.getContext().getDrawable(R.mipmap.ic_fav));
@@ -186,18 +195,22 @@ public class homeContentAdapter extends RecyclerView.Adapter<homeContentAdapter.
                     @Override
                     public void onClick(View view) {
                         final String num = addQuantityButton.getNumber();
-                    }
+                        totalItems[0] = num;
+                        }
                 });
                 btnAddToCart  = (Button) mDialog.findViewById(R.id.btnAddToCart);
 
                 btnAddToCart.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(final View v) {
+                        String userTotalItems = totalItems[0];
+                        //convert string to double
+                        double convertTotalItems = Double.parseDouble(userTotalItems);
                         Map<String, Object> imagesMap = new HashMap<>();
                         imagesMap.put("item_name",itemName);
                         imagesMap.put("restaurant_name", "Kibanda");
-                        imagesMap.put("quantity", 5);
-                        imagesMap.put("total_price", 300);
+                        imagesMap.put("quantity", convertTotalItems);
+                        imagesMap.put("total_price",convertTotalItems*item_price);
                         imagesMap.put("item_id", itemId);
                         imagesMap.put("timestamp", FieldValue.serverTimestamp());
 
