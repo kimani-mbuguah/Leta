@@ -16,20 +16,11 @@ public class WelcomeActivity extends AppCompatActivity {
     Button getStartedBtn;
     Animation uptodown,downtoup;
 
-    //firebase
-    private FirebaseAuth mAuth;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
-        mAuth = FirebaseAuth.getInstance();
-
-        if (mAuth.getCurrentUser() != null) {
-            Intent sendToMainIntent = new Intent(WelcomeActivity.this, ClientMainActivity.class);
-            startActivity(sendToMainIntent);
-        }
 
         getStartedBtn = findViewById(R.id.buttonGetStarted);
         l1 = findViewById(R.id.l1);

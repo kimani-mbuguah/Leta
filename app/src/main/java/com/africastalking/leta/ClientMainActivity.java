@@ -1,33 +1,41 @@
 package com.africastalking.leta;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 public class ClientMainActivity extends AppCompatActivity {
 
-    private TextView mTextMessage;
     private HomeFragment homeFragment;
     private MyMealsFragment myMealsFragment;
     private MyOrdersFragment myOrdersFragment;
     private android.support.v7.widget.Toolbar clientMainToolbar;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client_main);
 
+        //initialize firebase auth
+        mAuth = FirebaseAuth.getInstance();
+
+        //check if a user is logged in
+        if (mAuth.getCurrentUser() == null) {
+            sendToStart();
+        }
+
         clientMainToolbar = findViewById(R.id.client_main_toolbar);
         setSupportActionBar(clientMainToolbar);
-
         getSupportActionBar().setTitle("Leta");
-
-        mTextMessage = (TextView) findViewById(R.id.message);
 
         homeFragment = new HomeFragment();
         myMealsFragment = new MyMealsFragment();
@@ -61,6 +69,44 @@ public class ClientMainActivity extends AppCompatActivity {
 
         });
     }
+
+    private void sendToStart() {
+        Intent welcomeIntent = new Intent(ClientMainActivity.this, WelcomeActivity.class);
+        startActivity(welcomeIntent);
+        finish();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+
+            case R.id.action_logout:
+                logOut();
+                return true;
+
+            default:
+                return false;
+
+
+        }
+
+    }
+
+    private void logOut() {
+        mAuth.signOut();
+        sendToStart();
+    }
+
 
     private void initializeFragment() {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -104,4 +150,7 @@ public class ClientMainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
 
     }
+
+
+
 }
