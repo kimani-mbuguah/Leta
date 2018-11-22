@@ -12,15 +12,23 @@ import android.widget.LinearLayout;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class WelcomeActivity extends AppCompatActivity {
-    LinearLayout l1,l2;
-    Button getStartedBtn;
-    Animation uptodown,downtoup;
+    private LinearLayout l1,l2;
+    private Button getStartedBtn;
+    private Animation uptodown,downtoup;
+    private FirebaseAuth mAuth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
+        mAuth = FirebaseAuth.getInstance();
+
+        if(mAuth.getCurrentUser() != null){
+            Intent sendToMainIntent = new Intent(WelcomeActivity.this,ClientMainActivity.class);
+            startActivity(sendToMainIntent);
+        }
 
         getStartedBtn = findViewById(R.id.buttonGetStarted);
         l1 = findViewById(R.id.l1);
