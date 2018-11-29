@@ -25,10 +25,10 @@ public class WelcomeActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        if(mAuth.getCurrentUser() != null){
-            Intent sendToMainIntent = new Intent(WelcomeActivity.this,ClientMainActivity.class);
-            startActivity(sendToMainIntent);
-        }
+//        if(mAuth.getCurrentUser() != null){
+//            Intent sendToMainIntent = new Intent(WelcomeActivity.this,ClientMainActivity.class);
+//            startActivity(sendToMainIntent);
+//        }
 
         getStartedBtn = findViewById(R.id.buttonGetStarted);
         l1 = findViewById(R.id.l1);
@@ -42,8 +42,10 @@ public class WelcomeActivity extends AppCompatActivity {
         getStartedBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent selectUserIntent = new Intent(WelcomeActivity.this, SelectUserActivity.class);
-                startActivity(selectUserIntent);
+//                Intent selectUserIntent = new Intent(WelcomeActivity.this, SelectUserActivity.class);
+//                startActivity(selectUserIntent);
+                Intent mainIntent = new Intent(WelcomeActivity.this,MainActivity.class);
+                startActivity(mainIntent);
             }
         });
     }
