@@ -34,7 +34,6 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Leta");
 
         mSignInBtn = findViewById(R.id.btnSignIn);
 
@@ -72,7 +71,7 @@ public class MainActivity extends AppCompatActivity
         mSignInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent signInIntent = new Intent(MainActivity.this, ClientLoginActivity.class);
+                Intent signInIntent = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(signInIntent);
             }
         });

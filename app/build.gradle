@@ -52,4 +52,7 @@ dependencies {
     //image slider
     implementation 'com.github.smarteist:autoimageslider:1.1.1'
 
+    //custom sign with google button
+    implementation 'com.shobhitpuri.custombuttons:google-signin:1.0.0'
+
 }
