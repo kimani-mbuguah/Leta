@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     String[] SPINNERLIST = {"Kibanda", "Kirichwa", "Java House", "KFC"};
     SliderLayout sliderLayout;
-    private Button mSignInBtn;
+    private Button mSignInBtn,mViewBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         mSignInBtn = findViewById(R.id.btnSignIn);
+        mViewBtn = findViewById(R.id.btnView);
 
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_dropdown_item_1line, SPINNERLIST);
@@ -73,6 +74,15 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View v) {
                 Intent signInIntent = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(signInIntent);
+            }
+        });
+
+        //click listener for view button
+        mViewBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent viewRestaurantIntent = new Intent(MainActivity.this,RestaurantDetailsActivity.class);
+                startActivity(viewRestaurantIntent);
             }
         });
     }

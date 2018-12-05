@@ -49,9 +49,15 @@
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme" />
-        <activity android:name=".SignUpActivity"
+        <activity
+            android:name=".SignUpActivity"
             android:label="Sign Up"
-            android:parentActivityName=".LoginActivity"></activity>
+            android:parentActivityName=".LoginActivity" />
+        <activity
+            android:name=".RestaurantDetailsActivity"
+            android:label="@string/title_activity_main"
+            android:theme="@style/AppTheme"
+            android:parentActivityName=".MainActivity"/>
     </application>
 
 </manifest>
